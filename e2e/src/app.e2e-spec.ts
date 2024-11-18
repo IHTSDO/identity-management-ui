@@ -9,6 +9,6 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to snomed-sso-ui!');
+    expect(page.getTitleText()).toEqual('Welcome to identity-management-ui!');
   });
 });
