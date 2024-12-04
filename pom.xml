@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.snomed</groupId>
-    <artifactId>snomed-sso-ui</artifactId>
+    <artifactId>identity-management-ui</artifactId>
     <version>2.3.0-SNAPSHOT</version>
 
-    <name>IHTSDO Identity Management UI</name>
+    <name>Identity Management UI</name>
 
     <properties>
         <packageName>${project.artifactId}</packageName>
@@ -37,7 +37,7 @@
                                     <signPackage>false</signPackage>
                                     <dataSet>
                                         <data>
-                                            <src>${basedir}/dist/snomed-sso-ui</src>
+                                            <src>${basedir}/dist/identity-management-ui</src>
                                             <type>directory</type>
                                             <mapper>
                                                 <type>perm</type>
