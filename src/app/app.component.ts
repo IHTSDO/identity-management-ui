@@ -1,22 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html'
+    imports: [RouterOutlet],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
-
-    copyrightYear: Number = null;
-
-    constructor(private http: HttpClient) {
-    }
-
-    ngOnInit() {
-        this.http.get<any>('/', {observe: 'response'}).subscribe(() => {},
-            response => {
-                this.copyrightYear = new Date(response.headers.get('Date')).getFullYear();
-            }
-        );
-    }
+export class AppComponent {
+  title = 'identity-management';
 }
