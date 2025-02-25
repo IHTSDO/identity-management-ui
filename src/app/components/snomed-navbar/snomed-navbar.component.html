@@ -1,0 +1,81 @@
+<nav class="sticky-top bg-slate-900 p-2 flex items-center justify-between">
+    <div class="flex justify-start items-center">
+        <img class="size-10" src="logos/snomed-logo-small.png" alt="SNOMED International Logo">
+        <span class="text-gray-200 text-lg pl-3">My Account</span>
+    </div>
+    <div class="flex justify-end items-center">
+        <button *ngIf="user" class="size-10 ms-2 rounded-full hover:bg-gray-700">
+            <img class="rounded-full size-8 m-auto" src="https://picsum.photos/200/200" alt="User Avatar">
+            <!--        <img class="rounded-full size-8 m-auto" src="https://jira.ihtsdotools.org/secure/useravatar?ownerId={{user.login}}" alt="User Avatar">-->
+        </button>
+
+        <div class="relative inline-block end">
+            <input type="checkbox" #expandedAppMenu hidden>
+            <button (click)="expandedAppMenu.value === 'expanded' ? expandedAppMenu.value = 'collapsed' : expandedAppMenu.value = 'expanded'" type="button" class="inline-flex justify-center rounded-full size-10 ms-2 text-sm font-semibold text-gray-200 hover:bg-gray-700" id="app-menu" aria-expanded="true" aria-haspopup="true">
+                <i class="fa-solid fa-grip text-lg m-auto"></i>
+            </button>
+
+            <div *ngIf="expandedAppMenu.value === 'expanded'" class="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="app-menu" tabindex="-1">
+                <div class="grid grid-cols-3 gap-3 p-2">
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-sky-400 fa-earth-americas text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">Browser</p>
+                    </div>
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-blue-400 fa-chart-line text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">Statistics</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 border-t p-2">
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-green-400 fa-pen-to-square text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">Authoring</p>
+                    </div>
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-lime-500 fa-clipboard-list text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">Reporting</p>
+                    </div>
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-emerald-400 fa-share-from-square text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">Templates</p>
+                    </div>
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-teal-400 fa-graduation-cap text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">Validation</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 border-t p-2">
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-amber-400 fa-user-pen text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">CRS</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 border-t p-2">
+                    <div class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer">
+                        <i class="fa-solid text-rose-400 fa-right-from-bracket text-4xl pb-2 text-center"></i>
+                        <p class="text-center text-slate-700">Release</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative inline-block">
+            <input type="checkbox" #expandedItemMenu hidden>
+            <button (click)="expandedItemMenu.value === 'expanded' ? expandedItemMenu.value = 'collapsed' : expandedItemMenu.value = 'expanded'" type="button" class="inline-flex justify-center rounded-full size-10 ms-2 text-sm font-semibold text-gray-200 hover:bg-gray-700" id="items-menu" aria-expanded="true" aria-haspopup="true">
+                <i class="fa-solid fa-bars text-lg m-auto"></i>
+            </button>
+
+            <div *ngIf="expandedItemMenu.value === 'expanded'" class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-full bg-white shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="items-menu" tabindex="-1">
+                <div class="py-1" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900 outline-none", Not Active: "text-gray-700" -->
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="items-menu-1">Account settings</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="items-menu-2">Support</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="items-menu-3">License</a>
+                    <form method="POST" action="#" role="none">
+                        <button type="submit" class="block w-full px-4 py-2 text-left text-sm text-gray-700" role="menuitem" tabindex="-1" id="items-menu-4">Sign out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
