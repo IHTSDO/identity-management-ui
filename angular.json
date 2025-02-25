@@ -32,6 +32,7 @@
                             }
                         ],
                         "styles": [
+                            "@fortawesome/fontawesome-free/css/all.css",
                             "src/styles.scss"
                         ],
                         "scripts": [],
@@ -60,7 +61,9 @@
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "ssr": false,
+                            "prerender": false
                         }
                     },
                     "defaultConfiguration": "production"

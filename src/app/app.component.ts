@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {SnomedNavbarComponent} from "./components/snomed-navbar/snomed-navbar.component";
+import {AuthenticationService} from "./services/authentication/authentication.service";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet],
+    imports: [RouterOutlet, SnomedNavbarComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'identity-management';
+export class AppComponent implements OnInit {
+    title = 'identity-management';
+
+    constructor(private authenticationService: AuthenticationService) {
+    }
+
+    ngOnInit() {
+        this.authenticationService.httpGetUser().subscribe(user => {
+            this.authenticationService.setUser(user);
+        });
+    }
 }
