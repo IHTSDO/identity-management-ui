@@ -16,8 +16,32 @@ export class SnomedNavbarComponent {
     user!: User;
     userSubscription: Subscription;
 
+    expandedUserMenu: boolean = false;
+    expandedAppMenu: boolean = false;
+    expandedItemMenu: boolean = false;
+
     constructor(private authenticationService: AuthenticationService) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
+    }
+
+    switchMenu(name: string): void {
+        switch (name) {
+            case 'user':
+                this.expandedUserMenu = true;
+                this.expandedAppMenu = false;
+                this.expandedItemMenu = false;
+                break;
+            case 'app':
+                this.expandedUserMenu = false;
+                this.expandedAppMenu = true;
+                this.expandedItemMenu = false;
+                break;
+            case 'item':
+                this.expandedUserMenu = false;
+                this.expandedAppMenu = false;
+                this.expandedItemMenu = true;
+                break;
+        }
     }
 
 }
