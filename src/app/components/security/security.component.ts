@@ -3,11 +3,15 @@ import {RouterLink} from "@angular/router";
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-security',
     imports: [
-        RouterLink
+        RouterLink,
+        FormsModule,
+        NgIf
     ],
   templateUrl: './security.component.html',
   styleUrl: './security.component.scss'

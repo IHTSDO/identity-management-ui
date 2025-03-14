@@ -13,4 +13,54 @@
             <p class="inline-block text-slate-700 ps-3">Security</p>
         </div>
     </div>
+    <div *ngIf="user" class="flex-1 mr-80">
+        <img class="rounded-full size-32 mt-16 m-auto" src="https://picsum.photos/200/200" alt="User Avatar">
+        <h1 class="text-2xl text-center m-3 text-slate-700">Welcome, <span class="text-3xl">{{user.displayName}}</span></h1>
+        <p class="text-center text-slate-600">Here is your security page. You can change your password here, as well as request further assistance if required.</p>
+
+        <div class="grid grid-cols-2 gap-6 w-3/4 justify-self-center mt-10">
+            <div>
+                <label for="login" class="text-sm text-slate-700 font-medium">Login</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border bg-gray-100">
+                        <input type="text" name="Login" id="login" class="grow py-1.5 text-slate-500  bg-gray-100 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" disabled [(ngModel)]="user.login">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="username" class="text-sm text-slate-700 font-medium">Username</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border bg-gray-100">
+                        <input type="text" name="Username" id="username" class="grow py-1.5 text-slate-500 bg-gray-100 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" disabled [(ngModel)]="user.username">
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-2">
+                <label for="changePassword" class="text-sm text-slate-700 font-medium">Change Password</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border">
+                        <input type="password" name="Change Password" id="changePassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please type your password here">
+                    </div>
+                </div>
+                <p class="text-sm pl-3 pt-1 text-lime-600">There must be at least 12 characters</p>
+                <p class="text-sm pl-3 pt-1 text-red-600">There must be both upper and lower case characters</p>
+                <p class="text-sm pl-3 pt-1 text-red-600">There must be at least 1 number</p>
+                <p class="text-sm pl-3 pt-1 text-red-600">There must be at least 1 special character</p>
+            </div>
+            <div class="col-span-2">
+                <label for="confirmPassword" class="text-sm text-slate-700 font-medium">Confirm Password</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border">
+                        <input type="text" name="Confirm Password" id="confirmPassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please confirm your password">
+                    </div>
+                </div>
+                <p class="text-sm pl-3 pt-1 text-red-600">The password must match</p>
+            </div>
+        </div>
+        <div class="grid w-3/4 justify-self-center mt-5">
+            <div class="justify-self-end">
+                <button class="rounded-md bg-lime-600 text-white px-3 py-1.5 w-20 font-medium content-end">SAVE</button>
+            </div>
+        </div>
+    </div>
 </div>
