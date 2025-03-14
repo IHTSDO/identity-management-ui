@@ -13,4 +13,65 @@
             <p class="inline-block text-slate-700 ps-3">Security</p>
         </div>
     </div>
+    <div *ngIf="user" class="flex-1 mr-80">
+        <img class="rounded-full size-32 mt-16 m-auto" src="https://picsum.photos/200/200" alt="User Avatar">
+        <h1 class="text-2xl text-center m-3 text-slate-700">Welcome, <span class="text-3xl">{{user.displayName}}</span></h1>
+        <p class="text-center text-slate-600">This is your user information, you can update it as relevant on this page.</p>
+
+        <div class="grid grid-cols-2 gap-6 w-3/4 justify-self-center mt-10">
+            <div>
+                <label for="login" class="text-sm text-slate-700 font-medium">Login</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border bg-gray-100">
+                        <input type="text" name="Login" id="login" class="grow py-1.5 text-slate-500  bg-gray-100 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" disabled [(ngModel)]="user.login">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="username" class="text-sm text-slate-700 font-medium">Username</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border bg-gray-100">
+                        <input type="text" name="Username" id="username" class="grow py-1.5 text-slate-500 bg-gray-100 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" disabled [(ngModel)]="user.username">
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-2">
+                <label for="email" class="text-sm text-slate-700 font-medium">Email</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border">
+                        <input type="text" name="Email" id="email" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="You're going to need an email.." [(ngModel)]="user.email">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="firstName" class="text-sm text-slate-700 font-medium">First Name</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border">
+                        <input type="text" name="First Name" id="firstName" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Did you forget your name?" [(ngModel)]="user.firstName">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="lastName" class="text-sm text-slate-700 font-medium">Last Name</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border">
+                        <input type="text" name="Last Name" id="lastName" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Did you forget your name?" [(ngModel)]="user.lastName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-2">
+                <label for="displayName" class="text-sm text-slate-700 font-medium">Display Name</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border">
+                        <input type="text" name="Display Name" id="displayName" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Did you forget your name?" [(ngModel)]="user.displayName">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid w-3/4 justify-self-center mt-10">
+            <div class="justify-self-end">
+                <button class="rounded-md bg-lime-600 text-white px-3 py-1.5 w-20 font-medium content-end">SAVE</button>
+            </div>
+        </div>
+    </div>
 </div>
