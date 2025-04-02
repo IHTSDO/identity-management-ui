@@ -44,4 +44,7 @@ export class SnomedNavbarComponent {
         }
     }
 
+    logout(): void {
+        this.authenticationService.httpLogout();
+    }
 }
