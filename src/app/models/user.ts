@@ -13,7 +13,7 @@ export class User {
 
 export class Login {
     constructor(
-        public username: string,
+        public login: string,
         public password: string,
         public rememberMe: boolean
     ) {}

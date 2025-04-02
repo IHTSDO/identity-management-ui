@@ -3,6 +3,7 @@ import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import {NgIf} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-snomed-navbar',
@@ -20,7 +21,7 @@ export class SnomedNavbarComponent {
     expandedAppMenu: boolean = false;
     expandedItemMenu: boolean = false;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private router: Router) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
     }
 
@@ -45,6 +46,13 @@ export class SnomedNavbarComponent {
     }
 
     logout(): void {
-        this.authenticationService.httpLogout();
+        this.authenticationService.httpLogout().subscribe({
+            next: (v) => {
+                this.authenticationService.setUser(undefined!);
+                this.router.navigate(['/login']);
+            },
+            error: (e) => console.error('error: ', e),
+            complete: () => console.info('complete')
+        });
     }
 }

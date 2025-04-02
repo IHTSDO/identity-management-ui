@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {Login} from "../../models/user";
+import {Login, User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import {NgIf} from "@angular/common";
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [
-        FormsModule
-    ],
+    imports: [NgIf, FormsModule],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'
 })
@@ -16,18 +17,27 @@ import {AuthenticationService} from "../../services/authentication/authenticatio
 export class LoginComponent implements OnInit {
     loginInformation: Login = new Login('', '', true);
 
-    constructor(private authenticationService: AuthenticationService) {
+    user!: User;
+    userSubscription: Subscription;
+
+    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router) {
+        this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
     }
 
     ngOnInit() {
-        console.log('ngOnInit');
     }
 
     login(): void {
-        this.authenticationService.httpLogin(this.loginInformation).subscribe(
-            login => {
-                console.log('login: ', login);
-            }
-        )
+        this.authenticationService.httpLogin(this.loginInformation).subscribe({
+            next: () => {
+                this.authenticationService.httpGetUser().subscribe({
+                    next: (user: any) => {
+                        this.authenticationService.setUser(user);
+                        this.router.navigate(['/home']);
+                    }
+                });
+            },
+            error: (e) => console.error('e: ', e)
+        });
     }
 }

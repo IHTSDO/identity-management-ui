@@ -12,12 +12,13 @@ import {AuthenticationService} from "./services/authentication/authentication.se
 export class AppComponent implements OnInit {
     title = 'identity-management';
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private readonly authenticationService: AuthenticationService) {
     }
 
     ngOnInit() {
-        this.authenticationService.httpGetUser().subscribe(user => {
-            this.authenticationService.setUser(user);
+        this.authenticationService.httpGetUser().subscribe({
+            next: () => {},
+            error: () => {}
         });
     }
 }

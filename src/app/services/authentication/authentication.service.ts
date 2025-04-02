@@ -27,7 +27,7 @@ export class AuthenticationService {
         return this.user.asObservable();
     }
 
-    httpGetUser() {
+    httpGetUser(): any {
         return this.http.get<User>('/auth');
     }
 
@@ -39,7 +39,7 @@ export class AuthenticationService {
         return this.http.post<Login>('api/account/logout', {});
     }
 
-    login(credential: any) {
+    httpLogin2(credential: any) {
         const promise = new Promise<void>((resolve, reject) => {
             this.http.post('api/authenticate', credential).subscribe(() => {
                 // login successful
@@ -53,7 +53,7 @@ export class AuthenticationService {
         return promise;
     }
 
-    logout() {
+    httpLogout2() {
         const promise = new Promise<void>((resolve, reject) => {
             this.http.post('api/account/logout', {}).subscribe(() => {
                 this.principleService.authenticate(null);
