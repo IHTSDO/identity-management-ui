@@ -17,7 +17,9 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.authenticationService.httpGetUser().subscribe({
-            next: () => {},
+            next: (user) => {
+                this.authenticationService.setUser(user);
+            },
             error: () => {}
         });
     }
