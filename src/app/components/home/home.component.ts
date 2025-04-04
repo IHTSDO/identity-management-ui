@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
@@ -12,7 +12,7 @@ import {Router, RouterLink} from "@angular/router";
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
     user!: User;
     userSubscription: Subscription;
 
@@ -20,6 +20,11 @@ export class HomeComponent implements OnInit {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
     }
 
-    ngOnInit() {
+    redirectTo(url: string): void {
+        window.open(url, '_blank');
+    }
+
+    getInitials(user: User): string {
+        return user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
     }
 }
