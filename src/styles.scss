@@ -8,3 +8,23 @@ html {
     font-weight: 400;
     font-style: normal;
 }
+
+body {
+    overflow: hidden;
+}
+
+div.scrollable-view {
+    height: calc(100vh - 50px);
+}
+
+@font-face {
+    font-family: Museo;
+    src: url("/fonts/Museo300-Regular.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+.museo {
+    font-family: Museo, sans-serif;
+    font-optical-sizing: auto;
+}
