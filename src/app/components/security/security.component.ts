@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
@@ -16,15 +16,21 @@ import {NgIf} from "@angular/common";
   templateUrl: './security.component.html',
   styleUrl: './security.component.scss'
 })
-export class SecurityComponent implements OnInit {
+export class SecurityComponent {
     user!: User;
     userSubscription: Subscription;
+
+    lengthCheck: boolean = false;
+    caseCheck: boolean = false;
+    numeralCheck: boolean = false;
+    specialCheck: boolean = false;
+    matchCheck: boolean = false;
 
     constructor(private readonly authenticationService: AuthenticationService) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
     }
 
-    ngOnInit() {
-        console.log('security user: ', this.user);
+    getInitials(user: User): string {
+        return user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
     }
 }
