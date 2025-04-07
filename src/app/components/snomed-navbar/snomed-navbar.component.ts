@@ -86,7 +86,7 @@ export class SnomedNavbarComponent {
             next: () => {
                 console.log('navbarComp.logout');
                 this.authenticationService.setUser(undefined!);
-                this.router.navigate(['/login']);
+                this.router.navigate(['/']);
             },
             error: (e) => console.error('error: ', e)
         });

@@ -5,8 +5,8 @@ import {SecurityComponent} from "./components/security/security.component";
 import {LoginComponent} from "./components/login/login.component";
 
 export const routes: Routes = [
-    {path: '', redirectTo: '/login', pathMatch: 'full'},
-    {path: 'login', component: LoginComponent},
+    {path: 'login', redirectTo: '', pathMatch: 'full'},
+    {path: '', component: LoginComponent},
     {path: 'home', component: HomeComponent},
     {path: 'user-information', component: UserInformationComponent},
     {path: 'security', component: SecurityComponent},

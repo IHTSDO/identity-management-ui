@@ -21,10 +21,12 @@ export class LoginComponent {
     user!: User;
     userSubscription: Subscription;
 
+    referer!: string;
+    refererSubscription: Subscription;
+
     constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router, private readonly route: ActivatedRoute) {
-        this.userSubscription = this.authenticationService.getUser().subscribe(data => {
-            this.user = data;
-        });
+        this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
+        this.refererSubscription = this.authenticationService.getReferer().subscribe(data => this.referer = data);
     }
 
     showPassword(): void {
@@ -39,8 +41,8 @@ export class LoginComponent {
         this.authenticationService.httpLogin(this.loginInformation).subscribe({
             next: () => {
                 this.route.queryParams.subscribe(param => {
-                    if (param['serviceReferer']) {
-                        window.open(param['serviceReferer']);
+                    if (this.referer) {
+                        window.open(this.referer, '_self');
                     } else {
                         this.authenticationService.httpGetUser().subscribe({
                             next: (user: any) => {
@@ -59,9 +61,8 @@ export class LoginComponent {
     logout(): void {
         this.authenticationService.httpLogout().subscribe({
             next: () => {
-                console.log('navbarComp.logout');
                 this.authenticationService.setUser(undefined!);
-                this.router.navigate(['/login']);
+                this.router.navigate(['/']);
             },
             error: (e) => console.error('error: ', e)
         });

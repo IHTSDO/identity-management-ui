@@ -10,6 +10,7 @@ import { AuthoringService } from '../authoring/authoring.service';
 export class AuthenticationService {
 
     private user = new BehaviorSubject<User>(undefined!);
+    private referer = new BehaviorSubject<string>('');
 
     uiConfiguration: any;
     uiConfigurationSubscription: Subscription;
@@ -24,6 +25,14 @@ export class AuthenticationService {
 
     getUser() {
         return this.user.asObservable();
+    }
+
+    setReferer(referer: string) {
+        this.referer.next(referer);
+    }
+
+    getReferer() {
+        return this.referer.asObservable();
     }
 
     httpGetUser() {
