@@ -42,8 +42,10 @@ export class LoginComponent {
             next: () => {
                 this.route.queryParams.subscribe(param => {
                     if (this.referer) {
+                        console.log('refering: ', this.referer);
                         window.open(this.referer, '_self');
                     } else {
+                        console.log('redirecting?: ', this.referer);
                         this.authenticationService.httpGetUser().subscribe({
                             next: (user: any) => {
                                 this.authenticationService.setUser(user);
