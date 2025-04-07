@@ -25,6 +25,6 @@ export class HomeComponent {
     }
 
     getInitials(user: User): string {
-        return user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
+        return user.firstName?.charAt(0).toUpperCase() + user.lastName?.charAt(0).toUpperCase();
     }
 }

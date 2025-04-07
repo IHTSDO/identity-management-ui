@@ -28,7 +28,7 @@ export class UserInformationComponent {
     }
 
     getInitials(user: User): string {
-        return user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
+        return user.firstName?.charAt(0).toUpperCase() + user.lastName?.charAt(0).toUpperCase();
     }
 
     saveUser(user: User): void {
