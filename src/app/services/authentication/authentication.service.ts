@@ -27,18 +27,18 @@ export class AuthenticationService {
     }
 
     httpGetUser() {
-        return this.http.get<User>('/auth/account');
+        return this.http.get<User>('/api/account');
     }
 
     httpUpdateUser(user: User) {
-        return this.http.put<User>('/auth/user?username=' + user.login, user);
+        return this.http.put<User>('/api/user?username=' + user.login, user);
     }
 
     httpLogin(loginInformation: Login) {
-        return this.http.post<Login>('api/authenticate', loginInformation);
+        return this.http.post<Login>('/api/authenticate', loginInformation);
     }
 
     httpLogout() {
-        return this.http.post<Login>('api/account/logout', {});
+        return this.http.post<Login>('/api/account/logout', {});
     }
 }
