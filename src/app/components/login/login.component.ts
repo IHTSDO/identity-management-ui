@@ -41,11 +41,12 @@ export class LoginComponent {
         this.authenticationService.httpLogin(this.loginInformation).subscribe({
             next: () => {
                 this.route.queryParams.subscribe(param => {
-                    if (this.referer) {
-                        console.log('refering: ', this.referer);
-                        window.open(this.referer, '_self');
+                    console.log('params: ', param);
+                    if (param['serviceReferer']) {
+                        console.log('redirect: ', param['serviceReferer']);
+                        window.open(param['serviceReferer'], '_self');
                     } else {
-                        console.log('redirecting?: ', this.referer);
+                        console.log('navigation?: ', this.referer);
                         this.authenticationService.httpGetUser().subscribe({
                             next: (user: any) => {
                                 this.authenticationService.setUser(user);
@@ -54,7 +55,6 @@ export class LoginComponent {
                         });
                     }
                 });
-
             },
             error: (e) => console.error('e: ', e)
         });
