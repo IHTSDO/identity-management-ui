@@ -60,7 +60,17 @@ export class SnomedNavbarComponent {
     }
 
     getInitials(user: User): string {
-        return user.firstName?.charAt(0).toUpperCase() + user.lastName?.charAt(0).toUpperCase();
+        let initials = '';
+
+        if (user.firstName) {
+            initials += user.firstName?.charAt(0).toUpperCase();
+        }
+
+        if (user.lastName) {
+            initials += user.lastName?.charAt(0).toUpperCase();
+        }
+
+        return initials;
     }
 
     navigateTo(location: string): void {

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Login, User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Subscription} from "rxjs";
 import {NgIf} from "@angular/common";
 
@@ -21,7 +21,7 @@ export class LoginComponent {
     user!: User;
     userSubscription: Subscription;
 
-    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router) {
+    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router, private readonly route: ActivatedRoute) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => {
             this.user = data;
         });
@@ -38,12 +38,19 @@ export class LoginComponent {
     login(): void {
         this.authenticationService.httpLogin(this.loginInformation).subscribe({
             next: () => {
-                this.authenticationService.httpGetUser().subscribe({
-                    next: (user: any) => {
-                        this.authenticationService.setUser(user);
-                        this.router.navigate(['/home']);
+                this.route.queryParams.subscribe(param => {
+                    if (param['serviceReferer']) {
+                        window.open(param['serviceReferer']);
+                    } else {
+                        this.authenticationService.httpGetUser().subscribe({
+                            next: (user: any) => {
+                                this.authenticationService.setUser(user);
+                                this.router.navigate(['/home']);
+                            }
+                        });
                     }
                 });
+
             },
             error: (e) => console.error('e: ', e)
         });
