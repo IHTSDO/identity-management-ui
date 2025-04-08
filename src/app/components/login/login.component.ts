@@ -40,21 +40,21 @@ export class LoginComponent {
     login(): void {
         this.authenticationService.httpLogin(this.loginInformation).subscribe({
             next: () => {
-                this.route.queryParams.subscribe(param => {
-                    console.log('params: ', param);
-                    if (param['serviceReferer']) {
-                        console.log('redirect: ', param['serviceReferer']);
-                        window.open(param['serviceReferer'], '_self');
-                    } else {
-                        console.log('navigation?: ', this.referer);
-                        this.authenticationService.httpGetUser().subscribe({
-                            next: (user: any) => {
-                                this.authenticationService.setUser(user);
-                                this.router.navigate(['/home']);
-                            }
-                        });
-                    }
-                });
+                const returnUrl = this.route.snapshot.queryParamMap.get('serviceReferer');
+                const returnUrl2 = this.route.snapshot.fragment?.substring(this.route.snapshot.fragment.indexOf('=') + 1, this.route.snapshot.fragment.length);
+
+                if (returnUrl) {
+                    window.location.href = returnUrl;
+                } else if(returnUrl2) {
+                    window.location.href = returnUrl2;
+                } else {
+                    this.authenticationService.httpGetUser().subscribe({
+                        next: (user: any) => {
+                            this.authenticationService.setUser(user);
+                            this.router.navigate(['/home']);
+                        }
+                    });
+                }
             },
             error: (e) => console.error('e: ', e)
         });

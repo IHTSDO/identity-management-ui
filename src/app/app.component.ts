@@ -16,14 +16,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('ngOnInit');
-        this.route.queryParams.subscribe(param => {
-            if (param['serviceReferer']) {
-                console.log('setting referer: ', param['serviceReferer']);
-                this.authenticationService.setReferer(param['serviceReferer']);
-            }
-        });
-
         this.authenticationService.httpGetUser().subscribe({
             next: (user) => {
                 this.authenticationService.setUser(user);
