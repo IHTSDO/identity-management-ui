@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Login, User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
