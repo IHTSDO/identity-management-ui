@@ -9,7 +9,7 @@
                 Please Log In
             </div>
             <div class="p-3">
-                <label for="login" class="text-sm text-slate-700 font-medium">Username</label>
+                <label for="username" class="text-sm text-slate-700 font-medium">Username</label>
                 <div class="mt-2 mb-3">
                     <div class="flex items-center rounded-md px-3 bg-white border">
                         <input [(ngModel)]="loginInformation.login" type="text" name="Username" id="username" class="grow py-1.5 text-slate-700  placeholder:text-gray-400 focus:outline-none">
@@ -26,22 +26,22 @@
                 <p class="text-sm pl-3 pt-1 mb-3"><span class="text-sky-400 cursor-pointer hover:text-sky-500">Forgot your password?</span></p>
                 <label for="rememberMe" class="text-sm text-slate-700 font-medium">Remember Me</label>
                 <input [(ngModel)]="loginInformation.rememberMe" type="checkbox" name="Remember Me" id="rememberMe" class="inline-block ml-2 text-slate-700 placeholder:text-gray-400 focus:outline-none">
-                <button class="mt-3 px-3 py-1.5 w-full bg-lime-600 hover:bg-lime-700 text-white rounded-md" (click)="login()">Sign me in!</button>
+                <button class="mt-3 px-3 py-1.5 w-full bg-lime-600 hover:bg-lime-700 text-white rounded-md" id="submit" (click)="login()">Sign me in!</button>
             </div>
-            <div class="border-t">
-                <p class="text-sm m-2 text-center">Or sign in with</p>
-                <div class="grid grid-cols-3 gap-3 p-2">
-                    <div class="hover:bg-gray-100 p-2 rounded-md cursor-pointer size-16 m-auto">
-                        <img src="logos/google-logo.svg" alt="Google Logo">
-                    </div>
-                    <div class="hover:bg-gray-100 p-2 rounded-md cursor-pointer size-16 m-auto">
-                        <img src="logos/github-logo.svg" alt="GitHub Logo">
-                    </div>
-                    <div class="hover:bg-gray-100 p-2 rounded-md cursor-pointer size-16 m-auto">
-                        <img src="logos/windows-logo.svg" alt="Windows Logo">
-                    </div>
-                </div>
-            </div>
+<!--            <div class="border-t">-->
+<!--                <p class="text-sm m-2 text-center">Or sign in with</p>-->
+<!--                <div class="grid grid-cols-3 gap-3 p-2">-->
+<!--                    <div class="hover:bg-gray-100 p-2 rounded-md cursor-pointer size-16 m-auto">-->
+<!--                        <img src="logos/google-logo.svg" alt="Google Logo">-->
+<!--                    </div>-->
+<!--                    <div class="hover:bg-gray-100 p-2 rounded-md cursor-pointer size-16 m-auto">-->
+<!--                        <img src="logos/github-logo.svg" alt="GitHub Logo">-->
+<!--                    </div>-->
+<!--                    <div class="hover:bg-gray-100 p-2 rounded-md cursor-pointer size-16 m-auto">-->
+<!--                        <img src="logos/windows-logo.svg" alt="Windows Logo">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
 
         <div *ngIf="user" class="bg-gray-50 rounded-lg overflow-hidden mb-20">
