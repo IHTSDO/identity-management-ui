@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Login, User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
@@ -14,7 +14,7 @@ import {NgIf} from "@angular/common";
     styleUrl: './login.component.scss'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     loginInformation: Login = new Login('', '', true);
     passwordVisible: boolean = false;
 
@@ -27,23 +27,6 @@ export class LoginComponent implements OnInit {
     constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router, private readonly route: ActivatedRoute) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
         this.refererSubscription = this.authenticationService.getReferer().subscribe(data => this.referer = data);
-    }
-
-    ngOnInit() {
-        if (this.route.snapshot.fragment?.includes('logout')) {
-            this.authenticationService.httpLogout().subscribe({
-                next: data => {
-                    this.authenticationService.setUser(undefined!);
-                    this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
-                },
-                error: (e) => {
-                    console.error('e: ', e);
-                    this.authenticationService.setUser(undefined!);
-                    this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
-                }
-            });
-        }
-
     }
 
     showPassword(): void {
@@ -61,8 +44,10 @@ export class LoginComponent implements OnInit {
                 const returnUrl2 = this.route.snapshot.fragment?.substring(this.route.snapshot.fragment.indexOf('=') + 1, this.route.snapshot.fragment.length);
 
                 if (returnUrl) {
+                    console.log('path1');
                     window.location.href = returnUrl;
                 } else if(returnUrl2) {
+                    console.log('path2');
                     window.location.href = returnUrl2;
                 } else {
                     this.authenticationService.httpGetUser().subscribe({
