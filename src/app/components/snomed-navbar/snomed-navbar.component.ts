@@ -84,7 +84,6 @@ export class SnomedNavbarComponent {
     logout(): void {
         this.authenticationService.httpLogout().subscribe({
             next: () => {
-                console.log('navbarComp.logout');
                 this.authenticationService.setUser(undefined!);
                 this.router.navigate(['/']);
             },

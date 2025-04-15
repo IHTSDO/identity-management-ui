@@ -16,7 +16,6 @@ export class LogoutComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('logout');
         this.authenticationService.httpLogout().subscribe({
             next: data => {
                 this.authenticationService.setUser(undefined!);

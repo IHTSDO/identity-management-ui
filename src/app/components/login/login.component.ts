@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Login, User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
@@ -14,7 +14,7 @@ import {NgIf} from "@angular/common";
     styleUrl: './login.component.scss'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     loginInformation: Login = new Login('', '', true);
     passwordVisible: boolean = false;
 
@@ -27,6 +27,23 @@ export class LoginComponent {
     constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router, private readonly route: ActivatedRoute) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
         this.refererSubscription = this.authenticationService.getReferer().subscribe(data => this.referer = data);
+    }
+
+    ngOnInit() {
+        if (this.route.snapshot.fragment?.includes('logout')) {
+            this.authenticationService.httpLogout().subscribe({
+                next: data => {
+                    this.authenticationService.setUser(undefined!);
+                    this.router.navigate(['/']);
+                },
+                error: (e) => {
+                    console.error('e: ', e);
+                    this.authenticationService.setUser(undefined!);
+                    this.router.navigate(['/']);
+                }
+            });
+        }
+
     }
 
     showPassword(): void {
