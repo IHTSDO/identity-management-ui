@@ -50,4 +50,8 @@ export class AuthenticationService {
     httpLogout() {
         return this.http.post<Login>('/api/account/logout', {});
     }
+
+    httpUpdatePassword(password: string) {
+        return this.http.put('/api/user/password', { newPassword: password });
+    }
 }

@@ -39,27 +39,51 @@
                 <label for="changePassword" class="text-sm text-slate-700 font-medium">Change Password</label>
                 <div class="mt-2">
                     <div class="flex items-center rounded-md px-3 border">
-                        <input type="password" name="Change Password" id="changePassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please type your password here">
+                        <input [type]="passwordVisible ? 'text' : 'password'" name="Change Password" id="changePassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please type your password here" [(ngModel)]="newPassword" (ngModelChange)="validateNewPassword(); validateNewPasswordConfirm()">
+                        <i *ngIf="!passwordVisible" class="fa-solid text-slate-700 fa-eye text-lg" (click)="showPassword()"></i>
+                        <i *ngIf="passwordVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hidePassword()"></i>
                     </div>
                 </div>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="lengthCheck" [class.text-red-600]="!lengthCheck">There must be at least 12 characters</p>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="caseCheck" [class.text-red-600]="!caseCheck">There must be both upper and lower case characters</p>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="numeralCheck" [class.text-red-600]="!numeralCheck">There must be at least 1 number</p>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="specialCheck" [class.text-red-600]="!specialCheck">There must be at least 1 special character</p>
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="lengthCheck" [class.text-red-600]="!lengthCheck">
+                    There must be at least 12 characters
+                    <i *ngIf="!lengthCheck" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="lengthCheck" class="fa-solid fa-check ps-2"></i>
+                </p>
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="caseCheck" [class.text-red-600]="!caseCheck">
+                    There must be both upper and lower case characters
+                    <i *ngIf="!caseCheck" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="caseCheck" class="fa-solid fa-check ps-2"></i>
+                </p>
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="numeralCheck" [class.text-red-600]="!numeralCheck">
+                    There must be at least 1 number
+                    <i *ngIf="!numeralCheck" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="numeralCheck" class="fa-solid fa-check ps-2"></i>
+                </p>
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="specialCheck" [class.text-red-600]="!specialCheck">
+                    There must be at least 1 special character
+                    <i *ngIf="!specialCheck" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="specialCheck" class="fa-solid fa-check ps-2"></i>
+                </p>
             </div>
             <div class="col-span-2">
                 <label for="confirmPassword" class="text-sm text-slate-700 font-medium">Confirm Password</label>
                 <div class="mt-2">
                     <div class="flex items-center rounded-md px-3 border">
-                        <input type="text" name="Confirm Password" id="confirmPassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please confirm your password">
+                        <input [type]="passwordConfirmVisible ? 'text' : 'password'" name="Confirm Password" id="confirmPassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please confirm your password" [(ngModel)]="newPasswordConfirm" (ngModelChange)="validateNewPassword(); validateNewPasswordConfirm()">
+                        <i *ngIf="!passwordConfirmVisible" class="fa-solid text-slate-700 fa-eye text-lg" (click)="showConfirmPassword()"></i>
+                        <i *ngIf="passwordConfirmVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hideConfirmPassword()"></i>
                     </div>
                 </div>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="matchCheck" [class.text-red-600]="!matchCheck">There must be at least 1 special character</p>
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="matchCheck" [class.text-red-600]="!matchCheck">
+                    Your passwords must match
+                    <i *ngIf="!matchCheck" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="matchCheck" class="fa-solid fa-check ps-2"></i>
+                </p>
             </div>
         </div>
         <div class="grid w-3/4 justify-self-center mt-5">
             <div class="justify-self-end">
-                <button class="rounded-md bg-lime-600 text-white px-3 py-1.5 w-20 font-medium content-end  disabled:opacity-50" [disabled]="!lengthCheck || !caseCheck || !numeralCheck || !specialCheck || !matchCheck">SAVE</button>
+                <button class="rounded-md bg-lime-600 text-white px-3 py-1.5 w-20 font-medium content-end  disabled:opacity-50" [disabled]="!lengthCheck || !caseCheck || !numeralCheck || !specialCheck || !matchCheck" (click)="savePassword()">SAVE</button>
             </div>
         </div>
     </div>

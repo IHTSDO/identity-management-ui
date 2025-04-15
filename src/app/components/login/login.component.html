@@ -23,9 +23,9 @@
                         <i *ngIf="passwordVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hidePassword()"></i>
                     </div>
                 </div>
-                <p class="text-sm pl-3 pt-1 mb-3"><span class="text-sky-400 cursor-pointer hover:text-sky-500">Forgot your password?</span></p>
+<!--                <p class="text-sm pl-3 pt-1 mb-3"><span class="text-sky-400 cursor-pointer hover:text-sky-500">Forgot your password?</span></p>-->
                 <label for="rememberMe" class="text-sm text-slate-700 font-medium">Remember Me</label>
-                <input [(ngModel)]="loginInformation.rememberMe" type="checkbox" name="Remember Me" id="rememberMe" class="inline-block ml-2 text-slate-700 placeholder:text-gray-400 focus:outline-none">
+                <input [(ngModel)]="loginInformation.rememberMe" type="checkbox" name="Remember Me" id="rememberMe" class="inline-block ml-2 text-slate-700 placeholder:text-gray-400 focus:outline-none mt-3">
                 <button class="mt-3 px-3 py-1.5 w-full bg-lime-600 hover:bg-lime-700 text-white rounded-md" id="submit" (click)="login()">Sign me in!</button>
             </div>
 <!--            <div class="border-t">-->

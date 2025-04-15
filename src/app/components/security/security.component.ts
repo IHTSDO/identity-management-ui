@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-security',
@@ -26,7 +27,13 @@ export class SecurityComponent {
     specialCheck: boolean = false;
     matchCheck: boolean = false;
 
-    constructor(private readonly authenticationService: AuthenticationService) {
+    newPassword: string = '';
+    newPasswordConfirm: string = '';
+
+    passwordVisible: boolean = false;
+    passwordConfirmVisible: boolean = false;
+
+    constructor(private readonly authenticationService: AuthenticationService, private readonly toastr: ToastrService) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
     }
 
@@ -42,5 +49,59 @@ export class SecurityComponent {
         }
 
         return initials;
+    }
+
+    showPassword(): void {
+        this.passwordVisible = true;
+    }
+
+    hidePassword(): void {
+        this.passwordVisible = false;
+    }
+
+    showConfirmPassword(): void {
+        this.passwordConfirmVisible = true;
+    }
+
+    hideConfirmPassword(): void {
+        this.passwordConfirmVisible = false;
+    }
+
+    validateNewPassword(): void {
+        this.lengthCheck = this.containsLength(this.newPassword);
+        this.caseCheck = this.containsUppercase(this.newPassword);
+        this.numeralCheck = this.containsNumeral(this.newPassword);
+        this.specialCheck = this.containsSpecial(this.newPassword);
+    }
+
+    containsLength(text: string): boolean {
+        return text.length >= 12;
+    }
+
+    containsUppercase(text: string): boolean {
+        return /[A-Z]/.test(text);
+    }
+
+    containsNumeral(text: string): boolean {
+        return /\d/.test(text);
+    }
+
+    containsSpecial(text: string): boolean {
+        return /[ `!@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(text);
+    }
+
+    validateNewPasswordConfirm(): void {
+        this.matchCheck = (this.newPassword === this.newPasswordConfirm) && (this.newPasswordConfirm !== '');
+    }
+
+    savePassword(): void {
+        this.authenticationService.httpUpdatePassword(this.newPassword).subscribe({
+            next: () => {
+                this.toastr.success('Saved');
+            },
+            error: err => {
+                this.toastr.error('Error');
+            }
+        })
     }
 }
