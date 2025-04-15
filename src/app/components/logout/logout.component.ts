@@ -19,12 +19,12 @@ export class LogoutComponent implements OnInit {
         this.authenticationService.httpLogout().subscribe({
             next: data => {
                 this.authenticationService.setUser(undefined!);
-                this.router.navigate(['/']);
+                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
             },
             error: (e) => {
                 console.error('e: ', e);
                 this.authenticationService.setUser(undefined!);
-                this.router.navigate(['/']);
+                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
             }
         });
     }
