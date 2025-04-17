@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
@@ -12,9 +12,9 @@ import {Router} from "@angular/router";
     templateUrl: './snomed-navbar.component.html',
     styleUrl: './snomed-navbar.component.scss'
 })
-export class SnomedNavbarComponent {
+export class SnomedNavbarComponent implements OnInit {
 
-    environment: string;
+    environment: string = '';
 
     user!: User;
     userSubscription: Subscription;
@@ -26,8 +26,11 @@ export class SnomedNavbarComponent {
 
     constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
-        this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
         router.events.subscribe(() => this.closeMenus());
+    }
+
+    ngOnInit() {
+        this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
     }
 
     switchMenu(name: string): void {
