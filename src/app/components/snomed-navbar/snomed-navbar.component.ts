@@ -2,17 +2,19 @@ import {Component} from '@angular/core';
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {NgFor, NgIf} from "@angular/common";
+import {NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-snomed-navbar',
     standalone: true,
-    imports: [NgIf, NgFor],
+    imports: [NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault],
     templateUrl: './snomed-navbar.component.html',
     styleUrl: './snomed-navbar.component.scss'
 })
 export class SnomedNavbarComponent {
+
+    environment: string;
 
     user!: User;
     userSubscription: Subscription;
@@ -24,6 +26,7 @@ export class SnomedNavbarComponent {
 
     constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
+        this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
         router.events.subscribe(() => this.closeMenus());
     }
 

@@ -41,14 +41,9 @@ export class LoginComponent {
         this.authenticationService.httpLogin(this.loginInformation).subscribe({
             next: () => {
                 const returnUrl = this.route.snapshot.queryParamMap.get('serviceReferer');
-                const returnUrl2 = this.route.snapshot.fragment?.substring(this.route.snapshot.fragment.indexOf('=') + 1, this.route.snapshot.fragment.length);
 
                 if (returnUrl) {
-                    console.log('path1');
                     window.location.href = returnUrl;
-                } else if(returnUrl2) {
-                    console.log('path2');
-                    window.location.href = returnUrl2;
                 } else {
                     this.authenticationService.httpGetUser().subscribe({
                         next: (user: any) => {

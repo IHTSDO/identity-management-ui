@@ -29,7 +29,12 @@
                             {
                                 "glob": "**/*",
                                 "input": "public"
-                            }
+                            },
+                            "src/favicon.ico",
+                            "src/favicon_grey.ico",
+                            "src/favicon_red.ico",
+                            "src/favicon_green.ico",
+                            "src/favicon_yellow.ico"
                         ],
                         "styles": [
                             "@fortawesome/fontawesome-free/css/all.css",
