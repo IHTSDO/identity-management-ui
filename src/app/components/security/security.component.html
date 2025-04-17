@@ -44,25 +44,25 @@
                         <i *ngIf="passwordVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hidePassword()"></i>
                     </div>
                 </div>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="lengthCheck" [class.text-red-600]="!lengthCheck">
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="lengthCheck" [class.text-red-600]="!lengthCheck" [class.text-slate-500]="lengthCheck === undefined">
                     There must be at least 12 characters
-                    <i *ngIf="!lengthCheck" class="fa-solid fa-xmark ps-2"></i>
-                    <i *ngIf="lengthCheck" class="fa-solid fa-check ps-2"></i>
+                    <i *ngIf="!lengthCheck && lengthCheck !== undefined" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="lengthCheck && lengthCheck !== undefined" class="fa-solid fa-check ps-2"></i>
                 </p>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="caseCheck" [class.text-red-600]="!caseCheck">
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="caseCheck" [class.text-red-600]="!caseCheck" [class.text-slate-500]="caseCheck === undefined">
                     There must be both upper and lower case characters
-                    <i *ngIf="!caseCheck" class="fa-solid fa-xmark ps-2"></i>
-                    <i *ngIf="caseCheck" class="fa-solid fa-check ps-2"></i>
+                    <i *ngIf="!caseCheck && caseCheck !== undefined" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="caseCheck && caseCheck !== undefined" class="fa-solid fa-check ps-2"></i>
                 </p>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="numeralCheck" [class.text-red-600]="!numeralCheck">
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="numeralCheck" [class.text-red-600]="!numeralCheck" [class.text-slate-500]="numeralCheck === undefined">
                     There must be at least 1 number
-                    <i *ngIf="!numeralCheck" class="fa-solid fa-xmark ps-2"></i>
-                    <i *ngIf="numeralCheck" class="fa-solid fa-check ps-2"></i>
+                    <i *ngIf="!numeralCheck && numeralCheck !== undefined" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="numeralCheck && numeralCheck !== undefined" class="fa-solid fa-check ps-2"></i>
                 </p>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="specialCheck" [class.text-red-600]="!specialCheck">
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="specialCheck" [class.text-red-600]="!specialCheck" [class.text-slate-500]="specialCheck === undefined">
                     There must be at least 1 special character
-                    <i *ngIf="!specialCheck" class="fa-solid fa-xmark ps-2"></i>
-                    <i *ngIf="specialCheck" class="fa-solid fa-check ps-2"></i>
+                    <i *ngIf="!specialCheck && specialCheck !== undefined" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="specialCheck && specialCheck !== undefined" class="fa-solid fa-check ps-2"></i>
                 </p>
             </div>
             <div class="col-span-2">
@@ -74,10 +74,10 @@
                         <i *ngIf="passwordConfirmVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hideConfirmPassword()"></i>
                     </div>
                 </div>
-                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="matchCheck" [class.text-red-600]="!matchCheck">
+                <p class="text-sm pl-3 pt-1" [class.text-lime-600]="matchCheck" [class.text-red-600]="!matchCheck" [class.text-slate-500]="matchCheck === undefined">
                     Your passwords must match
-                    <i *ngIf="!matchCheck" class="fa-solid fa-xmark ps-2"></i>
-                    <i *ngIf="matchCheck" class="fa-solid fa-check ps-2"></i>
+                    <i *ngIf="!matchCheck && matchCheck !== undefined" class="fa-solid fa-xmark ps-2"></i>
+                    <i *ngIf="matchCheck && matchCheck !== undefined" class="fa-solid fa-check ps-2"></i>
                 </p>
             </div>
         </div>

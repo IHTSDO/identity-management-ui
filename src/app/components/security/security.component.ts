@@ -21,11 +21,11 @@ export class SecurityComponent {
     user!: User;
     userSubscription: Subscription;
 
-    lengthCheck: boolean = false;
-    caseCheck: boolean = false;
-    numeralCheck: boolean = false;
-    specialCheck: boolean = false;
-    matchCheck: boolean = false;
+    lengthCheck: boolean | undefined = undefined;
+    caseCheck: boolean | undefined = undefined;
+    numeralCheck: boolean | undefined = undefined;
+    specialCheck: boolean | undefined = undefined;
+    matchCheck: boolean | undefined = undefined;
 
     newPassword: string = '';
     newPasswordConfirm: string = '';
@@ -91,7 +91,9 @@ export class SecurityComponent {
     }
 
     validateNewPasswordConfirm(): void {
-        this.matchCheck = (this.newPassword === this.newPasswordConfirm) && (this.newPasswordConfirm !== '');
+        if (this.newPasswordConfirm !== '') {
+            this.matchCheck = (this.newPassword === this.newPasswordConfirm) && (this.newPasswordConfirm !== '');
+        }
     }
 
     savePassword(): void {
