@@ -5,6 +5,7 @@ import {AuthenticationService} from "../../services/authentication/authenticatio
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Subscription} from "rxjs";
 import {NgIf} from "@angular/common";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent {
     referer!: string;
     refererSubscription: Subscription;
 
-    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router, private readonly route: ActivatedRoute) {
+    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router, private readonly route: ActivatedRoute, private readonly toastr: ToastrService) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
         this.refererSubscription = this.authenticationService.getReferer().subscribe(data => this.referer = data);
     }
@@ -53,7 +54,14 @@ export class LoginComponent {
                     });
                 }
             },
-            error: (e) => console.error('e: ', e)
+            error: (e) => {
+                console.error('e: ', e)
+                if (e['status'] === 400 || e['status'] === 404) {
+                    this.toastr.error('Invalid username or password', 'Error');
+                } else {
+                    this.toastr.error('Unauthorised', 'Error');
+                }
+            }
         });
     }
 
