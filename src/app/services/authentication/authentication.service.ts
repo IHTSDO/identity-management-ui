@@ -1,53 +1,57 @@
-import {Injectable} from '@angular/core';
-import {User} from "../../models/user";
-import {Observable, Subject, Subscription} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {PrincipleService} from "../principle/principle.service";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {Login, User} from '../../models/user';
+import {BehaviorSubject, Subject, Subscription} from 'rxjs';
+import { AuthoringService } from '../authoring/authoring.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
 
-    constructor(private http: HttpClient, private principleService: PrincipleService) {
+    private user = new BehaviorSubject<User>(undefined!);
+    private referer = new BehaviorSubject<string>('');
+
+    uiConfiguration: any;
+    uiConfigurationSubscription: Subscription;
+
+    constructor(private http: HttpClient, private authoringService: AuthoringService) {
+        this.uiConfigurationSubscription = this.authoringService.getUIConfiguration().subscribe( data => this.uiConfiguration = data);
     }
 
-    login2(credential): Observable<User> {
-        return this.http.post<User>('api/authenticate', credential);
+    setUser(user: User) {
+        this.user.next(user);
     }
 
-    logout2() {
-        return this.http.post('api/account/logout', {});
+    getUser() {
+        return this.user.asObservable();
     }
 
-    login(credential) {
-
-        const promise = new Promise<void>((resolve, reject) => {
-            this.http.post('api/authenticate', credential).subscribe(() => {
-                // login successful
-                resolve();
-            }, error => {
-                console.error('Error while trying to logIn. Error message: ' + error.message);
-                reject(error);
-            });
-        });
-
-        return promise;
+    setReferer(referer: string) {
+        this.referer.next(referer);
     }
 
-    logout() {
-        // return this.http.post('api/account/logout', {});
+    getReferer() {
+        return this.referer.asObservable();
+    }
 
-        const promise = new Promise<void>((resolve, reject) => {
-            this.http.post('api/account/logout', {}).subscribe(() => {
-                this.principleService.authenticate(null);
-                resolve();
-            }, error => {
-                console.error('Error while trying to logout. Error message: ' + error.message);
-                reject(error);
-            });
-        });
+    httpGetUser() {
+        return this.http.get<User>('/api/account');
+    }
 
-        return promise;
+    httpUpdateUser(user: User) {
+        return this.http.put<User>('/api/user?username=' + user.login, user);
+    }
+
+    httpLogin(loginInformation: Login) {
+        return this.http.post<Login>('/api/authenticate', loginInformation);
+    }
+
+    httpLogout() {
+        return this.http.post<Login>('/api/account/logout', {});
+    }
+
+    httpUpdatePassword(password: string) {
+        return this.http.put('/api/user/password', { newPassword: password });
     }
 }

@@ -1,84 +1,77 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { PrincipleService } from 'src/app/services/principle/principle.service';
-import {User} from "../../models/user";
-import {ToastrService} from "ngx-toastr";
+import {Component} from '@angular/core';
+import {FormsModule} from "@angular/forms";
+import {Login, User} from "../../models/user";
+import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {Subscription} from "rxjs";
+import {NgIf} from "@angular/common";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
+    standalone: true,
+    imports: [NgIf, FormsModule, RouterLink],
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
 
-    authenticationError = false;
-    forbiddenError = false;
+export class LoginComponent {
+    loginInformation: Login = new Login('', '', true);
+    passwordVisible: boolean = false;
 
-    messageForm: FormGroup;
-    formSubmit = false;
+    user!: User;
+    userSubscription: Subscription;
 
-    user: User;
+    referer!: string;
+    refererSubscription: Subscription;
 
-    year: number = new Date().getFullYear();
+    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router, private readonly route: ActivatedRoute, private readonly toastr: ToastrService) {
+        this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
+        this.refererSubscription = this.authenticationService.getReferer().subscribe(data => this.referer = data);
+    }
 
-    constructor(private authenticationService: AuthenticationService,
-                private principle: PrincipleService,
-                private router: Router,
-                private route: ActivatedRoute,
-                private formBuild: FormBuilder,
-                private toastr: ToastrService) {
-        this.messageForm = this.formBuild.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required],
-            rememberMe: [true]
+    showPassword(): void {
+        this.passwordVisible = true;
+    }
+
+    hidePassword(): void {
+        this.passwordVisible = false;
+    }
+
+    login(): void {
+        this.authenticationService.httpLogin(this.loginInformation).subscribe({
+            next: () => {
+                const returnUrl = this.route.snapshot.queryParamMap.get('serviceReferer');
+
+                if (returnUrl) {
+                    window.location.href = returnUrl;
+                } else {
+                    this.authenticationService.httpGetUser().subscribe({
+                        next: (user: any) => {
+                            this.authenticationService.setUser(user);
+                            this.router.navigate(['/home']);
+                        }
+                    });
+                }
+            },
+            error: (e) => {
+                console.error('e: ', e)
+                if (e['status'] === 400 || e['status'] === 404) {
+                    this.toastr.error('Invalid username or password', 'Error');
+                } else {
+                    this.toastr.error('Unauthorised', 'Error');
+                }
+            }
         });
     }
 
-    ngOnInit() {
-        if (this.principle.isIdentityResolved()) {
-            if (this.principle.isAuthenticated()) {
-                this.router.navigate(['']);
-                this.user = this.principle._identity;
-            }
-        } else {
-            this.principle.loadAccountCompleted.subscribe(() => {
-                if (this.principle.isAuthenticated()) {
-                    this.router.navigate(['']);
-                    this.user = this.principle._identity;
-                }
-            });
-        }
-    }
-
-    doLogin() {
-        this.authenticationError = false;
-        this.forbiddenError = false;
-        this.formSubmit = true;
-
-        if (this.messageForm.invalid) {
-            return;
-        }
-
-        this.authenticationService.login({
-            login: this.messageForm.controls['username'].value,
-            password: this.messageForm.controls['password'].value,
-            rememberMe: this.messageForm.controls['rememberMe'].value
-        }).then(() => {
-            const returnUrl = this.route.snapshot.queryParamMap.get('serviceReferer');
-
-            if (returnUrl) {
-                window.location.href = returnUrl;
-            } else {
-                window.location.href = 'https://confluence.ihtsdotools.org/dashboard';
-            }
-        }, error => {
-            if (error['status'] === 400 || error['status'] === 404) {
-                this.toastr.error('Invalid username or password', 'Error');
-            } else {
-                this.toastr.error('Unauthorised', 'Error');
-            }
+    logout(): void {
+        this.authenticationService.httpLogout().subscribe({
+            next: () => {
+                this.authenticationService.setUser(undefined!);
+                this.router.navigate(['/']);
+            },
+            error: (e) => console.error('error: ', e)
         });
     }
 }

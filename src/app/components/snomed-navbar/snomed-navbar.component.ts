@@ -1,51 +1,99 @@
-import { Component, OnInit } from '@angular/core';
-import { Location} from '@angular/common';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
+import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {PrincipleService} from "../../services/principle/principle.service";
+import {NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-snomed-navbar',
+    standalone: true,
+    imports: [NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault],
     templateUrl: './snomed-navbar.component.html',
-    styleUrls: ['./snomed-navbar.component.scss']
+    styleUrl: './snomed-navbar.component.scss'
 })
 export class SnomedNavbarComponent implements OnInit {
 
-    isAuthenticated: Boolean = undefined;
-    isAdmin: Boolean = undefined;
+    environment: string = '';
 
-    environment: string;
-    path: string;
+    user!: User;
+    userSubscription: Subscription;
 
-    user: User;
+    expandedUserMenu: boolean = false;
+    expandedAppMenu: boolean = false;
+    expandedItemMenu: boolean = false;
+    rolesView: boolean = false;
 
-    constructor(private principle: PrincipleService,
-                private authenticationService: AuthenticationService,
-                private location: Location,
-                private router: Router) {
-        this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
-        this.path = this.location.path();
+    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router) {
+        this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
+        router.events.subscribe(() => this.closeMenus());
     }
 
     ngOnInit() {
-        if (this.principle.isIdentityResolved()) {
-            this.isAuthenticated = this.principle.isAuthenticated();
-            this.isAdmin = this.principle.isInRole('ROLE_ihtsdo-ops-admin') || this.principle.isInRole('ROLE_ims-administrators');
-            this.user = this.principle._identity;
-        }
-
-        this.principle.loadAccountCompleted.subscribe(() => {
-            this.isAuthenticated = this.principle.isAuthenticated();
-            this.isAdmin = this.principle.isInRole('ROLE_ihtsdo-ops-admin') || this.principle.isInRole('ROLE_ims-administrators');
-        });
+        this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
     }
 
-    logout() {
-        this.authenticationService.logout().then(() => {
-            this.router.navigate(['login']);
-            window.location.reload();
-            this.user = null;
+    switchMenu(name: string): void {
+        switch (name) {
+            case 'user':
+                this.expandedUserMenu = true;
+                this.expandedAppMenu = false;
+                this.expandedItemMenu = false;
+                break;
+            case 'app':
+                this.expandedUserMenu = false;
+                this.expandedAppMenu = true;
+                this.expandedItemMenu = false;
+                break;
+            case 'item':
+                this.expandedUserMenu = false;
+                this.expandedAppMenu = false;
+                this.expandedItemMenu = true;
+                break;
+        }
+    }
+
+    closeMenus(): void {
+        this.expandedUserMenu = false;
+        this.expandedAppMenu = false;
+        this.expandedItemMenu = false;
+        this.rolesView = false;
+    }
+
+    openRolesView(): void {
+        this.closeMenus();
+        this.rolesView = true;
+    }
+
+    getInitials(user: User): string {
+        let initials = '';
+
+        if (user.firstName) {
+            initials += user.firstName?.charAt(0).toUpperCase();
+        }
+
+        if (user.lastName) {
+            initials += user.lastName?.charAt(0).toUpperCase();
+        }
+
+        return initials;
+    }
+
+    navigateTo(location: string): void {
+        this.router.navigate([location]);
+    }
+
+    redirectTo(url: string): void {
+        window.open(url, '_blank');
+    }
+
+    logout(): void {
+        this.authenticationService.httpLogout().subscribe({
+            next: () => {
+                this.authenticationService.setUser(undefined!);
+                this.router.navigate(['/']);
+            },
+            error: (e) => console.error('error: ', e)
         });
     }
 }

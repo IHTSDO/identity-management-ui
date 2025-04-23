@@ -1,31 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ReactiveFormsModule} from "@angular/forms";
+import {AuthenticationService} from "../../services/authentication/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
-    selector: 'app-logout',
-    templateUrl: './logout.component.html',
-    styleUrls: ['./logout.component.scss']
+  selector: 'app-logout',
+    imports: [
+        ReactiveFormsModule
+    ],
+  templateUrl: './logout.component.html',
+  styleUrl: './logout.component.scss'
 })
 export class LogoutComponent implements OnInit {
-
-    constructor(private auth: AuthenticationService,
-                private router: Router,
-                private route: ActivatedRoute) {
+    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router) {
     }
 
     ngOnInit() {
-        this.auth.logout().then(() => {
-            const returnUrl = this.route.snapshot.queryParamMap.get('serviceReferer');
-
-            if (returnUrl) {
-                this.router.navigate(['/login'], {queryParams: {serviceReferer: returnUrl}});
-            } else {
-                this.router.navigate(['/login']);
+        this.authenticationService.httpLogout().subscribe({
+            next: data => {
+                this.authenticationService.setUser(undefined!);
+                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
+            },
+            error: (e) => {
+                console.error('e: ', e);
+                this.authenticationService.setUser(undefined!);
+                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
             }
-        }, (error) => {
-            console.error(error);
         });
     }
-
 }

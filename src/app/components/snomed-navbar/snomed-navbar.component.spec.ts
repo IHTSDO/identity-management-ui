@@ -1,34 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SnomedNavbarComponent } from './snomed-navbar.component';
-import { MainToTopPipe } from '../../pipes/main-to-top.pipe';
-import { AlphabeticalPipe } from '../../pipes/alphabetical/alphabetical.pipe';
 
 describe('SnomedNavbarComponent', () => {
-    let component: SnomedNavbarComponent;
-    let fixture: ComponentFixture<SnomedNavbarComponent>;
+  let component: SnomedNavbarComponent;
+  let fixture: ComponentFixture<SnomedNavbarComponent>;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [
-                SnomedNavbarComponent,
-                MainToTopPipe,
-                AlphabeticalPipe
-            ],
-            imports: [
-                FormsModule,
-                HttpClientModule
-            ],
-            schemas: []
-        }).compileComponents();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SnomedNavbarComponent]
+    })
+    .compileComponents();
 
-        fixture = TestBed.createComponent(SnomedNavbarComponent);
-        component = fixture.componentInstance;
-    });
+    fixture = TestBed.createComponent(SnomedNavbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
