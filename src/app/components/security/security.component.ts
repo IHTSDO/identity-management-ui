@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Router, RouterLink} from "@angular/router";
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
@@ -17,7 +17,7 @@ import {ToastrService} from "ngx-toastr";
   templateUrl: './security.component.html',
   styleUrl: './security.component.scss'
 })
-export class SecurityComponent {
+export class SecurityComponent implements OnInit {
     user!: User;
     userSubscription: Subscription;
 
@@ -33,8 +33,19 @@ export class SecurityComponent {
     passwordVisible: boolean = false;
     passwordConfirmVisible: boolean = false;
 
-    constructor(private readonly authenticationService: AuthenticationService, private readonly toastr: ToastrService) {
+    constructor(private readonly authenticationService: AuthenticationService, private readonly toastr: ToastrService, private readonly router: Router) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
+    }
+
+    ngOnInit() {
+        this.authenticationService.httpGetUser().subscribe({
+            next: (user) => {
+                this.authenticationService.setUser(user);
+            },
+            error: () => {
+                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
+            }
+        });
     }
 
     getInitials(user: User): string {

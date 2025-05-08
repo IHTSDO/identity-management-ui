@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
@@ -12,12 +12,23 @@ import {Router, RouterLink} from "@angular/router";
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     user!: User;
     userSubscription: Subscription;
 
     constructor(private readonly authenticationService: AuthenticationService, public router: Router) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
+    }
+
+    ngOnInit() {
+        this.authenticationService.httpGetUser().subscribe({
+            next: (user) => {
+                this.authenticationService.setUser(user);
+            },
+            error: () => {
+                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
+            }
+        });
     }
 
     redirectTo(url: string): void {

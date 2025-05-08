@@ -1,12 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {SnomedNavbarComponent} from "./components/snomed-navbar/snomed-navbar.component";
 import {AuthenticationService} from "./services/authentication/authentication.service";
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT, NgIf} from "@angular/common";
+import {User} from "./models/user";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, SnomedNavbarComponent],
+    imports: [RouterOutlet, SnomedNavbarComponent, NgIf],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
@@ -15,7 +17,11 @@ export class AppComponent implements OnInit {
 
     environment: string = '';
 
-    constructor(private readonly authenticationService: AuthenticationService, @Inject(DOCUMENT) private readonly document: Document) {
+    user!: User;
+    userSubscription: Subscription;
+
+    constructor(private readonly authenticationService: AuthenticationService, @Inject(DOCUMENT) private readonly document: Document, private readonly router: Router) {
+        this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
     }
 
     ngOnInit() {
@@ -26,7 +32,9 @@ export class AppComponent implements OnInit {
             next: (user) => {
                 this.authenticationService.setUser(user);
             },
-            error: () => {}
+            error: () => {
+                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
+            }
         });
     }
 

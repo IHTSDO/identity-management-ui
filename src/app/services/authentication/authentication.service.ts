@@ -9,13 +9,13 @@ import { AuthoringService } from '../authoring/authoring.service';
 })
 export class AuthenticationService {
 
-    private user = new BehaviorSubject<User>(undefined!);
-    private referer = new BehaviorSubject<string>('');
+    private readonly user = new BehaviorSubject<User>(undefined!);
+    private readonly referer = new BehaviorSubject<string>('');
 
     uiConfiguration: any;
     uiConfigurationSubscription: Subscription;
 
-    constructor(private http: HttpClient, private authoringService: AuthoringService) {
+    constructor(private readonly http: HttpClient, private readonly authoringService: AuthoringService) {
         this.uiConfigurationSubscription = this.authoringService.getUIConfiguration().subscribe( data => this.uiConfiguration = data);
     }
 
