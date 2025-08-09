@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
+import {NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {Router} from "@angular/router";
+import {LauncherApp, LauncherConfigService} from "../../services/launcher-config.service";
 
 @Component({
     selector: 'app-snomed-navbar',
     standalone: true,
-    imports: [NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault],
+    imports: [NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, NgClass],
     templateUrl: './snomed-navbar.component.html',
     styleUrl: './snomed-navbar.component.scss'
 })
@@ -24,13 +25,29 @@ export class SnomedNavbarComponent implements OnInit {
     expandedItemMenu: boolean = false;
     rolesView: boolean = false;
 
-    constructor(private readonly authenticationService: AuthenticationService, private readonly router: Router) {
+    apps: LauncherApp[] = [];
+
+    constructor(
+        private readonly authenticationService: AuthenticationService,
+        private readonly launcherConfig: LauncherConfigService,
+        private readonly router: Router
+    ) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
         router.events.subscribe(() => this.closeMenus());
     }
 
     ngOnInit() {
         this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
+        this.launcherConfig.getApps().subscribe(apps => this.apps = apps);
+    }
+
+    appsByGroup(group: number): LauncherApp[] {
+        return this.apps.filter(a => (a.group ?? 4) === group);
+    }
+
+    colourClass(colour: string): string {
+        // map tailwind token to text colour class
+        return colour ? `text-${colour}` : 'text-slate-600';
     }
 
     switchMenu(name: string): void {
