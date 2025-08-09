@@ -30,6 +30,11 @@
                                 "glob": "**/*",
                                 "input": "public"
                             },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "assets"
+                            },
                             "src/favicon.ico",
                             "src/favicon_grey.ico",
                             "src/favicon_red.ico",

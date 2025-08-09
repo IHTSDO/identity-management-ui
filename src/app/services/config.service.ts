@@ -1,0 +1,72 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map, of } from 'rxjs';
+
+export interface AppConfig {
+  keycloakAuthUrl: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ConfigService {
+  private config: AppConfig | null = null;
+
+  constructor(private http: HttpClient) {}
+
+  loadConfig(): Observable<AppConfig> {
+    // Try to load from assets first, fallback to hardcoded config
+    return this.http.get<any>('/assets/launcherConfig.json').pipe(
+      map(data => {
+        // Extract the config object from the JSON structure
+        this.config = data[0]; // The config is the first object in the array
+        if (!this.config) {
+          throw new Error('Configuration not found in launcherConfig.json');
+        }
+        return this.config;
+      }),
+      map(config => {
+        console.log('Configuration loaded from file:', config);
+        return config;
+      })
+    ).pipe(
+      map(config => config),
+      map(config => {
+        if (!config.keycloakAuthUrl) {
+          throw new Error('Keycloak auth URL not found in configuration');
+        }
+        return config;
+      })
+    );
+  }
+
+  getKeycloakAuthUrl(): string {
+    return this.config?.keycloakAuthUrl || 'https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=dev-ims&response_type=code&scope=openid&redirect_uri=';
+  }
+
+  // Alternative method that doesn't require a specific client
+  getKeycloakLoginUrl(): string {
+    const currentUrl = window.location.origin;
+    // Try realm-management client
+    return `https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=realm-management&response_type=code&scope=openid&redirect_uri=${encodeURIComponent(currentUrl)}`;
+  }
+
+  // Direct login without OAuth (fallback)
+  getDirectKeycloakLoginUrl(): string {
+    const currentUrl = window.location.origin;
+    return `https://dev-keycloak.ihtsdotools.org/realms/snomed/login-actions/authenticate?session_code=xxx&execution=xxx&client_id=security-admin-console&tab_id=xxx`;
+  }
+
+  getAuthUrlWithReferrer(): string {
+    const baseUrl = this.getKeycloakAuthUrl();
+    const currentUrl = window.location.origin;
+    const fullUrl = `${baseUrl}${encodeURIComponent(currentUrl)}`;
+    console.log('Generated Keycloak URL:', fullUrl);
+    console.log('Base URL:', baseUrl);
+    console.log('Current URL:', currentUrl);
+    console.log('Encoded current URL:', encodeURIComponent(currentUrl));
+    console.log('Expected redirect URI pattern (nginx):', 'https://local.ihtsdotools.org:8092/*');
+    console.log('Actual redirect URI being sent:', currentUrl);
+    return fullUrl;
+  }
+}

@@ -28,15 +28,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.authenticationService.httpGetUser().subscribe({
-            next: (user) => {
-                this.authenticationService.setUser(user);
-            },
-            error: () => {
-                this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
-            }
-        });
-
         // Load Discourse topics
         this.loadDiscourseTopics();
     }
