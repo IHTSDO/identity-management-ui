@@ -76,24 +76,27 @@ export interface DiscourseResponse {
   providedIn: 'root'
 })
 export class DiscourseService {
-  private readonly baseUrl = '/discourse';
+  // Proxy for API calls (nginx forwards /discourse -> https://forums.snomedtools.org)
+  private readonly apiBaseUrl = '/discourse';
+  // Public base for user-facing links
+  private readonly publicBaseUrl = 'https://forums.snomedtools.org';
 
   constructor(private http: HttpClient) {}
 
+  private static topicTime(t: DiscourseTopic): number {
+    const d = t.bumped_at || t.last_posted_at || t.created_at;
+    return d ? new Date(d).getTime() : 0;
+  }
+
   getLatestTopics(categoryId: number = 12, limit: number = 6): Observable<DiscourseTopic[]> {
-    const url = `${this.baseUrl}/c/company-news/${categoryId}/l/latest.json?limit=${limit}`;
-    
+    const url = `${this.apiBaseUrl}/c/company-news/${categoryId}/l/latest.json?limit=${limit}`;
     return this.http.get<DiscourseResponse>(url).pipe(
-      map(response => {
-        console.log('Discourse API response:', response);
-        const topics = response.topic_list.topics;
-        console.log('Topics:', topics);
-        return topics.map(topic => ({
-          ...topic,
-          created_by: topic.created_by || { username: 'Unknown', id: 0, name: 'Unknown', avatar_template: '' },
-          last_poster: topic.last_poster || { username: 'Unknown', id: 0, name: 'Unknown', avatar_template: '' }
-        }));
-      })
+      map(response => (response?.topic_list?.topics ?? []).map(topic => ({
+        ...topic,
+        created_by: topic.created_by || { username: 'Unknown', id: 0, name: 'Unknown', avatar_template: '' },
+        last_poster: topic.last_poster || { username: 'Unknown', id: 0, name: 'Unknown', avatar_template: '' }
+      }))),
+      map(topics => topics.sort((a, b) => DiscourseService.topicTime(b) - DiscourseService.topicTime(a)))
     );
   }
 
@@ -102,23 +105,15 @@ export class DiscourseService {
     const now = new Date();
     const diffInMs = now.getTime() - date.getTime();
     const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-    
-    if (diffInDays === 0) {
-      return 'Today';
-    } else if (diffInDays === 1) {
-      return '1 day ago';
-    } else if (diffInDays < 7) {
-      return `${diffInDays} days ago`;
-    } else if (diffInDays < 30) {
-      const weeks = Math.floor(diffInDays / 7);
-      return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-    } else {
-      const months = Math.floor(diffInDays / 30);
-      return `${months} month${months > 1 ? 's' : ''} ago`;
-    }
+    if (diffInDays === 0) return 'Today';
+    if (diffInDays === 1) return '1 day ago';
+    if (diffInDays < 7) return `${diffInDays} days ago`;
+    if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
+    return `${Math.floor(diffInDays / 30)} months ago`;
   }
 
   getTopicUrl(topic: DiscourseTopic): string {
-    return `${this.baseUrl}/t/${topic.slug}/${topic.id}`;
+    // Ensure user clicks go to the real Discourse site, not the local /discourse proxy
+    return `${this.publicBaseUrl}/t/${topic.slug}/${topic.id}`;
   }
 }
