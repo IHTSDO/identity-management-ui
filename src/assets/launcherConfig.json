@@ -3,29 +3,26 @@
   "apps": [
     {
       "Application": "RMP",
-      "icon": "rmp.png",
       "faIcon": "fa-layer-group",
       "link": "https://rmp.ihtsdotools.org/",
-      "description": "RMP (Reference Member Platform) is a tool for managing SNOMED CT reference sets and member-specific content.",
+      "description": "RMP (Request Management Platform) is a tool for managing managed service content requests.",
       "client": "",
       "colour": "rose-500",
       "group": 4
     },
     {
       "Application": "RNMS",
-      "icon": "rnms.png",
       "faIcon": "fa-table-list",
-      "link": "https://rnms.ihtsdotools.org/",
-      "description": "RNMS (Reference Nomenclature Management System) is a tool for managing SNOMED CT reference sets and nomenclature.",
+      "link": "https://authoring.ihtsdotools.org/release-notes-management/",
+      "description": "RNMS (Release Notes Management System) is a tool for managing SNOMED CT release notes.",
       "client": "",
       "colour": "rose-500",
       "group": 4
     },
     {
       "Application": "RTT",
-      "icon": "rtt.png",
       "faIcon": "fa-list-check",
-      "link": "https://rtt.ihtsdotools.org/",
+      "link": "https://refset.ihtsdotools.org/",
       "description": "RTT (Reference Set Tool) is a tool for managing SNOMED CT reference sets and terminology.",
       "client": "",
       "colour": "violet-500",
@@ -33,9 +30,8 @@
     },
     {
       "Application": "Snap 2 SNOMED",
-      "icon": "snap2snomed.png",
       "faIcon": "fa-link",
-      "link": "https://snap2snomed.ihtsdotools.org/",
+      "link": "https://snap.snomedtools.org/",
       "description": "Snap2SNOMED is a tool for mapping and aligning clinical data to SNOMED CT concepts.",
       "client": "",
       "colour": "violet-500",
@@ -43,7 +39,6 @@
     },
     {
       "Application": "Spaces",
-      "icon": "atlassian.png",
       "faIcon": "fa-diagram-project",
       "link": "https://atlassian.ihtsdotools.org/",
       "description": "Atlassian tools provide collaboration and project management capabilities for SNOMED CT development teams.",
@@ -53,7 +48,6 @@
     },
     {
       "Application": "cis",
-      "icon": "cis.png",
       "faIcon": "fa-fingerprint",
       "link": "https://cis.ihtsdotools.org/",
       "description": "CIS (Component Identifier Service) is a tool for managing SNOMED CT component identifiers and metadata.",
@@ -63,27 +57,24 @@
     },
     {
       "Application": "eps-authoring",
-      "icon": "eps-snowstorm.png",
       "faIcon": "fa-graduation-cap",
-      "link": "https://eps-snowstorm.ihtsdotools.org/",
+      "link": "https://eps-authoring.ihtsdotools.org/",
       "description": "EPS Authoring training and certification platform for SNOMED CT terminology services.",
       "client": "",
       "colour": "green-500",
       "group": 2
     },
     {
-      "Application": "int-mapping",
-      "icon": "int-mapping.png",
+      "Application": "Mapping",
       "faIcon": "fa-right-left",
-      "link": "https://int-mapping.ihtsdotools.org/",
-      "description": "International Mapping tool for managing cross-terminology mappings and alignments.",
+      "link": "https://mapping.ihtsdotools.org/",
+      "description": "Mapping tool for managing cross-terminology mappings and alignments.",
       "client": "",
       "colour": "violet-500",
       "group": 3
     },
     {
       "Application": "mlds",
-      "icon": "mlds.png",
       "faIcon": "fa-id-badge",
       "link": "https://mlds.ihtsdotools.org/",
       "description": "MLDS (Member License Distribution Service) is a tool for managing SNOMED CT license distribution to member organizations.",
@@ -93,7 +84,6 @@
     },
     {
       "Application": "release",
-      "icon": "release.png",
       "faIcon": "fa-rocket",
       "link": "https://release.ihtsdotools.org/",
       "description": "Release management tool for coordinating SNOMED CT releases.",
@@ -103,7 +93,6 @@
     },
     {
       "Application": "request",
-      "icon": "request.png",
       "faIcon": "fa-inbox",
       "link": "https://request.ihtsdotools.org/",
       "description": "Request management tool for handling requests for change to SNOMED CT content.",
@@ -113,17 +102,15 @@
     },
     {
       "Application": "us-request",
-      "icon": "us-request.png",
       "faIcon": "fa-flag",
       "link": "https://us-request.ihtsdotools.org/",
-      "description": "US-Request is a tool for managing request for change to SNOMED CT content.",
+      "description": "US-Request is a tool for managing request for change to US SNOMED CT content.",
       "client": "",
       "colour": "violet-500",
       "group": 3
     },
     {
       "Application": "rt2",
-      "icon": "rt2.png",
       "faIcon": "fa-toolbox",
       "link": "https://rt2.ihtsdotools.org/",
       "description": "RT2 (Reference Tool 2) is the second generation reference set management tool for SNOMED CT terminology.",
@@ -133,7 +120,6 @@
     },
     {
       "Application": "simplex",
-      "icon": "simplex.png",
       "faIcon": "fa-pen-to-square",
       "link": "https://simplex.ihtsdotools.org/",
       "description": "Simplex is a simplified SNOMED CT authoring and management tool for basic terminology operations.",
@@ -143,7 +129,6 @@
     },
     {
       "Application": "authoring",
-      "icon": "authoring.png",
       "faIcon": "fa-pen",
       "link": "https://authoring.ihtsdotools.org/",
       "description": "Authoring is a tool for managing SNOMED CT content.",
@@ -153,7 +138,6 @@
     },
     {
       "Application": "MRCMMT",
-      "icon": "mrcmmt.png",
       "faIcon": "fa-network-wired",
       "link": "https://mrcmmt.ihtsdotools.org/",
       "description": "MRCMMT is a tool for managing SNOMED CT MRCM content.",
@@ -163,9 +147,8 @@
     },
     {
       "Application": "validation browser",
-      "icon": "validation-browser.png",
       "faIcon": "fa-check-double",
-      "link": "https://validation-browser.ihtsdotools.org/",
+      "link": "https://authoring.ihtsdotools.org/validation-browser/",
       "description": "Validation Browser is a tool for browsing SNOMED CT validation rules.",
       "client": "",
       "colour": "green-500",
@@ -173,9 +156,8 @@
     },
     {
       "Application": "template browser",
-      "icon": "template-browser.png",
       "faIcon": "fa-clone",
-      "link": "https://template-browser.ihtsdotools.org/",
+      "link": "https://authoring.ihtsdotools.org/template-browser/",
       "description": "Template Browser is a tool for browsing SNOMED CT templates.",
       "client": "",
       "colour": "green-500",
@@ -183,7 +165,6 @@
     },
     {
       "Application": "browser",
-      "icon": "browser.png",
       "faIcon": "fa-magnifying-glass",
       "link": "https://browser.ihtsdotools.org/",
       "description": "Browser is a tool for browsing SNOMED CT content.",
@@ -192,18 +173,16 @@
       "group": 1
     },
     {
-      "Application": "lookup-ui",
-      "icon": "lookup-ui.png",
+      "Application": "lookup",
       "faIcon": "fa-binoculars",
-      "link": "https://lookup-ui.ihtsdotools.org/",
-      "description": "Lookup-UI is quickly searching SNOMED CT content.",
+      "link": "https://lookup.snomedtools.org/",
+      "description": "Lookup is a tool for quickly searching SNOMED CT content.",
       "client": "",
       "colour": "sky-500",
       "group": 1
     },
     {
       "Application": "Forums",
-      "icon": "forums.png",
       "faIcon": "fa-comments",
       "link": "https://forums.snomedtools.org/",
       "description": "SNOMED community forums (Discourse) for discussions, Q&A and announcements.",
@@ -213,7 +192,6 @@
     },
     {
       "Application": "Docs",
-      "icon": "docs.png",
       "faIcon": "fa-book",
       "link": "https://docs.snomed.org/",
       "description": "Official SNOMED CT documentation, user guides and product information.",
