@@ -18,3 +18,8 @@ export class Login {
         public rememberMe: boolean
     ) {}
 }
+
+export interface UnauthorizedResponse {
+    authenticated: false;
+    loginUrl: string;
+}

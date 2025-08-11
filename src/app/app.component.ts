@@ -48,7 +48,8 @@ export class AppComponent implements OnInit {
                     },
                     error: (error) => {
                         console.log('No authenticated user found in app component');
-                        // Don't redirect here, let the guard handle it
+                        // Handle 401 responses by redirecting to login endpoint
+                        this.authenticationService.handleUnauthorizedError(error);
                     }
                 });
             },

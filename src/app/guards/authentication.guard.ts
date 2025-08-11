@@ -43,8 +43,9 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
             return authenticationService.httpGetUser().pipe(
                 tap(fetchedUser => authenticationService.setUser(fetchedUser)),
                 map(() => true),
-                catchError(() => {
-                    authenticationService.redirectToKeycloakAuth();
+                catchError((error) => {
+                    // Handle 401 responses by redirecting to login endpoint
+                    authenticationService.handleUnauthorizedError(error);
                     return of(false);
                 })
             );
