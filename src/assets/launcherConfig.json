@@ -1,5 +1,6 @@
 {
   "keycloakAuthUrl": "https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=dev-ims&response_type=code&scope=openid&state=random&redirect_uri=",
+  "keycloakLogoutUrl": "https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/logout?client_id=dev-ims&post_logout_redirect_uri=",
   "apps": [
     {
       "Application": "RMP",

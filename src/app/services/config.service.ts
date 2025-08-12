@@ -4,6 +4,7 @@ import { Observable, map, of } from 'rxjs';
 
 export interface AppConfig {
   keycloakAuthUrl: string;
+  keycloakLogoutUrl: string;
 }
 
 @Injectable({
@@ -42,6 +43,18 @@ export class ConfigService {
 
   getKeycloakAuthUrl(): string {
     return this.config?.keycloakAuthUrl || 'https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=dev-ims&response_type=code&scope=openid&redirect_uri=';
+  }
+
+  getKeycloakLogoutUrl(): string {
+    return this.config?.keycloakLogoutUrl || 'https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/logout?client_id=dev-ims&post_logout_redirect_uri=';
+  }
+
+  getLogoutUrlWithReturnTo(): string {
+    const baseUrl = this.getKeycloakLogoutUrl();
+    const returnTo = window.location.origin;
+    const fullUrl = `${baseUrl}${encodeURIComponent(returnTo)}`;
+    console.log('Generated Keycloak logout URL:', fullUrl);
+    return fullUrl;
   }
 
   // Alternative method that doesn't require a specific client

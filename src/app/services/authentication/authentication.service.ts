@@ -12,6 +12,7 @@ export class AuthenticationService {
 
     private readonly user = new BehaviorSubject<User>(undefined!);
     private readonly referer = new BehaviorSubject<string>('');
+    private readonly logoutStep = new BehaviorSubject<'backend' | 'keycloak'>('backend');
     private redirecting = false;
 
     uiConfiguration: any;
@@ -39,6 +40,10 @@ export class AuthenticationService {
 
     getReferer() {
         return this.referer.asObservable();
+    }
+
+    getLogoutStep() {
+        return this.logoutStep.asObservable();
     }
 
     httpGetUser() {
@@ -136,6 +141,50 @@ export class AuthenticationService {
         console.log('Attempting silent SSO login:', silentLoginUrl);
         // Use top-level navigation for silent login
         window.location.href = silentLoginUrl;
+    }
+
+    /**
+     * Perform logout and redirect to Keycloak
+     * This method handles the logout process by first calling the backend logout endpoint,
+     * then redirecting to Keycloak for proper session termination
+     */
+    logout(): void {
+        if (this.redirecting) {
+            console.log('Already redirecting, skipping...');
+            return;
+        }
+        this.redirecting = true;
+        
+        // Clear user immediately for better UX
+        this.user.next(undefined!);
+        
+        // First call the backend logout endpoint to clear local session data
+        this.httpLogout().subscribe({
+            next: (data) => {
+                console.log('Backend logout successful:', data);
+                this.logoutStep.next('keycloak');
+                this.redirectToKeycloak();
+            },
+            error: (error) => {
+                console.error('Backend logout error:', error);
+                // Even if backend logout fails, still redirect to Keycloak
+                this.logoutStep.next('keycloak');
+                this.redirectToKeycloak();
+            }
+        });
+    }
+
+    /**
+     * Redirect to Keycloak logout endpoint
+     * This is called after the backend logout endpoint is hit
+     */
+    private redirectToKeycloak(): void {
+        // Get the Keycloak logout URL with returnTo parameter
+        const logoutUrl = this.configService.getLogoutUrlWithReturnTo();
+        
+        console.log('Redirecting to Keycloak logout:', logoutUrl);
+        // Use top-level navigation to Keycloak logout endpoint
+        window.location.href = logoutUrl;
     }
 
     /**

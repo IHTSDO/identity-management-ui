@@ -105,12 +105,7 @@ export class SnomedNavbarComponent implements OnInit {
     }
 
     logout(): void {
-        this.authenticationService.httpLogout().subscribe({
-            next: () => {
-                this.authenticationService.setUser(undefined!);
-                this.router.navigate(['/']);
-            },
-            error: (e) => console.error('error: ', e)
-        });
+        // Use the authentication service logout method which redirects to Keycloak
+        this.authenticationService.logout();
     }
 }
