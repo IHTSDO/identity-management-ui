@@ -28,7 +28,7 @@
                     <div class="flex-1 px-3">
                         <p class="text-slate-700 p-2">Access SNOMED Confluence spaces for collaboration, documentation and discovery.</p>
                     </div>
-                    <div class="border-t" routerLink="/user-information">
+                    <div class="border-t" (click)="redirectTo('https://atlassian.ihtsdotools.org/')">
                         <button class="p-2 rounded-md text-sky-500 w-full">Open Confluence Spaces<i class="fa-solid fa-arrow-right ps-3"></i></button>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="flex-1 px-3">
                         <p class="text-slate-700 p-2">Join discussions and connect with the SNOMED community through our forums and discussion boards.</p>
                     </div>
-                    <div class="border-t" routerLink="/security">
+                    <div class="border-t" (click)="redirectTo('https://forums.snomedtools.org/')">
                         <button class="p-2 rounded-md text-sky-500 w-full">Join SNOMED Forums<i class="fa-solid fa-arrow-right ps-3"></i></button>
                     </div>
                 </div>

@@ -37,33 +37,33 @@
                 <i class="fa-solid fa-grip text-lg m-auto"></i>
             </button>
 
-            <div *ngIf="expandedAppMenu" class="absolute right-0 z-10 mt-2 w-96 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="app-menu" tabindex="-1">
+            <div *ngIf="expandedAppMenu" class="fixed right-4 z-10 mt-2 w-96 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="app-menu" tabindex="-1">
                 <!-- Group 1 -->
                 <div class="grid grid-cols-4 gap-3 p-2" *ngIf="appsByGroup(1).length">
-                    <div *ngFor="let app of appsByGroup(1)" class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer" (click)="redirectTo(app.link)" [title]="app.description">
-                        <i class="fa-solid text-3xl pb-1 text-center" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-sky-500': true}"></i>
-                        <p class="text-center text-slate-700 text-sm">{{app.Application}}</p>
+                    <div *ngFor="let app of appsByGroup(1)" class="hover:bg-gray-100 p-3 rounded-lg cursor-pointer flex flex-col items-center justify-center text-center min-h-[80px]" (click)="redirectTo(app.link)" [title]="app.description">
+                        <i class="fa-solid text-3xl mb-2" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-sky-500': true}"></i>
+                        <p class="text-slate-700 text-xs leading-tight font-medium">{{app.Application}}</p>
                     </div>
                 </div>
                 <!-- Group 2 -->
                 <div class="grid grid-cols-4 gap-3 border-t p-2" *ngIf="appsByGroup(2).length">
-                    <div *ngFor="let app of appsByGroup(2)" class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer" (click)="redirectTo(app.link)" [title]="app.description">
-                        <i class="fa-solid text-3xl pb-1 text-center" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-green-500': true}"></i>
-                        <p class="text-center text-slate-700 text-sm">{{app.Application}}</p>
+                    <div *ngFor="let app of appsByGroup(2)" class="hover:bg-gray-100 p-3 rounded-lg cursor-pointer flex flex-col items-center justify-center text-center min-h-[80px]" (click)="redirectTo(app.link)" [title]="app.description">
+                        <i class="fa-solid text-3xl mb-2" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-green-500': true}"></i>
+                        <p class="text-slate-700 text-xs leading-tight font-medium">{{app.Application}}</p>
                     </div>
                 </div>
                 <!-- Group 3 -->
                 <div class="grid grid-cols-4 gap-3 border-t p-2" *ngIf="appsByGroup(3).length">
-                    <div *ngFor="let app of appsByGroup(3)" class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer" (click)="redirectTo(app.link)" [title]="app.description">
-                        <i class="fa-solid text-3xl pb-1 text-center" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-violet-500': true}"></i>
-                        <p class="text-center text-slate-700 text-sm">{{app.Application}}</p>
+                    <div *ngFor="let app of appsByGroup(3)" class="hover:bg-gray-100 p-3 rounded-lg cursor-pointer flex flex-col items-center justify-center text-center min-h-[80px]" (click)="redirectTo(app.link)" [title]="app.description">
+                        <i class="fa-solid text-3xl mb-2" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-violet-500': true}"></i>
+                        <p class="text-slate-700 text-xs leading-tight font-medium">{{app.Application}}</p>
                     </div>
                 </div>
                 <!-- Group 4 -->
                 <div class="grid grid-cols-4 gap-3 border-t p-2" *ngIf="appsByGroup(4).length">
-                    <div *ngFor="let app of appsByGroup(4)" class="hover:bg-gray-100 p-2 rounded-lg justify-items-center cursor-pointer" (click)="redirectTo(app.link)" [title]="app.description">
-                        <i class="fa-solid text-3xl pb-1 text-center" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-rose-500': true}"></i>
-                        <p class="text-center text-slate-700 text-sm">{{app.Application}}</p>
+                    <div *ngFor="let app of appsByGroup(4)" class="hover:bg-gray-100 p-3 rounded-lg cursor-pointer flex flex-col items-center justify-center text-center min-h-[80px]" (click)="redirectTo(app.link)" [title]="app.description">
+                        <i class="fa-solid text-3xl mb-2" [class]="'fa-solid ' + app.faIcon" [ngClass]="{'text-rose-500': true}"></i>
+                        <p class="text-slate-700 text-xs leading-tight font-medium">{{app.Application}}</p>
                     </div>
                 </div>
             </div>

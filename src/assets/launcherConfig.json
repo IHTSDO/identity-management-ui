@@ -48,7 +48,7 @@
       "group": 1
     },
     {
-      "Application": "cis",
+      "Application": "CIS",
       "faIcon": "fa-fingerprint",
       "link": "https://cis.ihtsdotools.org/",
       "description": "CIS (Component Identifier Service) is a tool for managing SNOMED CT component identifiers and metadata.",
@@ -57,7 +57,7 @@
       "group": 4
     },
     {
-      "Application": "eps-authoring",
+      "Application": "EPS Authoring",
       "faIcon": "fa-graduation-cap",
       "link": "https://eps-authoring.ihtsdotools.org/",
       "description": "EPS Authoring training and certification platform for SNOMED CT terminology services.",
@@ -75,7 +75,7 @@
       "group": 3
     },
     {
-      "Application": "mlds",
+      "Application": "MLDS",
       "faIcon": "fa-id-badge",
       "link": "https://mlds.ihtsdotools.org/",
       "description": "MLDS (Member License Distribution Service) is a tool for managing SNOMED CT license distribution to member organizations.",
@@ -84,7 +84,7 @@
       "group": 1
     },
     {
-      "Application": "release",
+      "Application": "Release",
       "faIcon": "fa-rocket",
       "link": "https://release.ihtsdotools.org/",
       "description": "Release management tool for coordinating SNOMED CT releases.",
@@ -93,7 +93,7 @@
       "group": 4
     },
     {
-      "Application": "request",
+      "Application": "Request",
       "faIcon": "fa-inbox",
       "link": "https://request.ihtsdotools.org/",
       "description": "Request management tool for handling requests for change to SNOMED CT content.",
@@ -102,7 +102,7 @@
       "group": 3
     },
     {
-      "Application": "us-request",
+      "Application": "US Request",
       "faIcon": "fa-flag",
       "link": "https://us-request.ihtsdotools.org/",
       "description": "US-Request is a tool for managing request for change to US SNOMED CT content.",
@@ -111,7 +111,7 @@
       "group": 3
     },
     {
-      "Application": "rt2",
+      "Application": "RT2",
       "faIcon": "fa-toolbox",
       "link": "https://rt2.ihtsdotools.org/",
       "description": "RT2 (Reference Tool 2) is the second generation reference set management tool for SNOMED CT terminology.",
@@ -120,7 +120,7 @@
       "group": 3
     },
     {
-      "Application": "simplex",
+      "Application": "Simplex",
       "faIcon": "fa-pen-to-square",
       "link": "https://simplex.ihtsdotools.org/",
       "description": "Simplex is a simplified SNOMED CT authoring and management tool for basic terminology operations.",
@@ -129,7 +129,7 @@
       "group": 2
     },
     {
-      "Application": "authoring",
+      "Application": "Authoring",
       "faIcon": "fa-pen",
       "link": "https://authoring.ihtsdotools.org/",
       "description": "Authoring is a tool for managing SNOMED CT content.",
@@ -147,7 +147,7 @@
       "group": 2
     },
     {
-      "Application": "validation browser",
+      "Application": "Validation Browser",
       "faIcon": "fa-check-double",
       "link": "https://authoring.ihtsdotools.org/validation-browser/",
       "description": "Validation Browser is a tool for browsing SNOMED CT validation rules.",
@@ -156,7 +156,7 @@
       "group": 2
     },
     {
-      "Application": "template browser",
+      "Application": "Template Browser",
       "faIcon": "fa-clone",
       "link": "https://authoring.ihtsdotools.org/template-browser/",
       "description": "Template Browser is a tool for browsing SNOMED CT templates.",
@@ -165,7 +165,7 @@
       "group": 2
     },
     {
-      "Application": "browser",
+      "Application": "Browser",
       "faIcon": "fa-magnifying-glass",
       "link": "https://browser.ihtsdotools.org/",
       "description": "Browser is a tool for browsing SNOMED CT content.",
@@ -174,7 +174,7 @@
       "group": 1
     },
     {
-      "Application": "lookup",
+      "Application": "Lookup",
       "faIcon": "fa-binoculars",
       "link": "https://lookup.snomedtools.org/",
       "description": "Lookup is a tool for quickly searching SNOMED CT content.",
