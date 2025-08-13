@@ -2,9 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, of } from 'rxjs';
 
+export interface KeycloakConfig {
+  baseUrl: string;
+  clientId: string;
+  login: {
+    path: string;
+    params: string;
+  };
+  logout: {
+    path: string;
+    params: string;
+  };
+}
+
 export interface AppConfig {
-  keycloakAuthUrl: string;
-  keycloakLogoutUrl: string;
+  keycloak: KeycloakConfig;
 }
 
 @Injectable({
@@ -33,8 +45,8 @@ export class ConfigService {
     ).pipe(
       map(config => config),
       map(config => {
-        if (!config.keycloakAuthUrl) {
-          throw new Error('Keycloak auth URL not found in configuration');
+        if (!config.keycloak) {
+          throw new Error('Keycloak configuration not found in configuration');
         }
         return config;
       })
@@ -42,11 +54,19 @@ export class ConfigService {
   }
 
   getKeycloakAuthUrl(): string {
-    return this.config?.keycloakAuthUrl || 'https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=dev-ims&response_type=code&scope=openid&redirect_uri=';
+    if (!this.config?.keycloak) {
+      return 'https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=dev-ims&response_type=code&scope=openid&redirect_uri=';
+    }
+    const { baseUrl, login } = this.config.keycloak;
+    return `${baseUrl}${login.path}${login.params}`;
   }
 
   getKeycloakLogoutUrl(): string {
-    return this.config?.keycloakLogoutUrl || 'https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/logout?client_id=dev-ims&post_logout_redirect_uri=';
+    if (!this.config?.keycloak) {
+      return 'https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect/logout?client_id=dev-ims&post_logout_redirect_uri=';
+    }
+    const { baseUrl, logout } = this.config.keycloak;
+    return `${baseUrl}${logout.path}${logout.params}`;
   }
 
   getLogoutUrlWithReturnTo(): string {
@@ -61,13 +81,13 @@ export class ConfigService {
   getKeycloakLoginUrl(): string {
     const currentUrl = window.location.origin;
     // Try realm-management client
-    return `https://dev-keycloak.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=realm-management&response_type=code&scope=openid&redirect_uri=${encodeURIComponent(currentUrl)}`;
+    return `https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=realm-management&response_type=code&scope=openid&redirect_uri=${encodeURIComponent(currentUrl)}`;
   }
 
   // Direct login without OAuth (fallback)
   getDirectKeycloakLoginUrl(): string {
     const currentUrl = window.location.origin;
-    return `https://dev-keycloak.ihtsdotools.org/realms/snomed/login-actions/authenticate?session_code=xxx&execution=xxx&client_id=security-admin-console&tab_id=xxx`;
+    return `https://dev-snoauth.ihtsdotools.org/realms/snomed/login-actions/authenticate?session_code=xxx&execution=xxx&client_id=security-admin-console&tab_id=xxx`;
   }
 
   getAuthUrlWithReferrer(): string {
@@ -81,5 +101,14 @@ export class ConfigService {
     console.log('Expected redirect URI pattern (nginx):', 'https://local.ihtsdotools.org:8092/*');
     console.log('Actual redirect URI being sent:', currentUrl);
     return fullUrl;
+  }
+
+  // New helper methods for the new structure
+  getKeycloakBaseUrl(): string {
+    return this.config?.keycloak?.baseUrl || 'https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect';
+  }
+
+  getKeycloakClientId(): string {
+    return this.config?.keycloak?.clientId || 'dev-ims';
   }
 }
