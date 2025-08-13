@@ -51,7 +51,7 @@
     {
       "Application": "Spaces",
       "faIcon": "fa-diagram-project",
-      "link": "https://atlassian.ihtsdotools.org/",
+      "link": "https://spaces.ihtsdotools.org/",
       "description": "Atlassian tools provide collaboration and project management capabilities for SNOMED CT development teams.",
       "client": "",
       "colour": "sky-500",
@@ -69,7 +69,7 @@
     {
       "Application": "EPS Authoring",
       "faIcon": "fa-graduation-cap",
-      "link": "https://eps-authoring.ihtsdotools.org/",
+      "link": "https://training-authoring.ihtsdotools.org/",
       "description": "EPS Authoring training and certification platform for SNOMED CT terminology services.",
       "client": "",
       "colour": "green-500",
@@ -150,7 +150,7 @@
     {
       "Application": "MRCMMT",
       "faIcon": "fa-network-wired",
-      "link": "https://mrcmmt.ihtsdotools.org/",
+      "link": "https://authoring.ihtsdotools.org/mrcmmt/",
       "description": "MRCMMT is a tool for managing SNOMED CT MRCM content.",
       "client": "",
       "colour": "green-500",
