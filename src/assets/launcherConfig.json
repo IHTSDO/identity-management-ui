@@ -1,14 +1,14 @@
 {
   "keycloak": {
     "baseUrl": "https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect",
-    "clientId": "ims",
+    "clientId": "IMS",
     "login": {
       "path": "/auth",
-      "params": "?client_id=ims&response_type=code&scope=openid&state=random&redirect_uri="
+      "params": "?client_id=IMS&response_type=code&scope=openid&state=random&redirect_uri="
     },
     "logout": {
       "path": "/logout",
-      "params": "?client_id=ims&post_logout_redirect_uri="
+      "params": "?client_id=IMS&post_logout_redirect_uri="
     }
   },
   "apps": [
