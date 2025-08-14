@@ -55,7 +55,7 @@ export class ConfigService {
 
   getKeycloakAuthUrl(): string {
     if (!this.config?.keycloak) {
-      return 'https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=dev-ims&response_type=code&scope=openid&redirect_uri=';
+      return 'https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect/auth?client_id=ims&response_type=code&scope=openid&redirect_uri=';
     }
     const { baseUrl, login } = this.config.keycloak;
     return `${baseUrl}${login.path}${login.params}`;
@@ -63,7 +63,7 @@ export class ConfigService {
 
   getKeycloakLogoutUrl(): string {
     if (!this.config?.keycloak) {
-      return 'https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect/logout?client_id=dev-ims&post_logout_redirect_uri=';
+      return 'https://dev-snoauth.ihtsdotools.org/realms/snomed/protocol/openid-connect/logout?client_id=ims&post_logout_redirect_uri=';
     }
     const { baseUrl, logout } = this.config.keycloak;
     return `${baseUrl}${logout.path}${logout.params}`;
@@ -109,6 +109,6 @@ export class ConfigService {
   }
 
   getKeycloakClientId(): string {
-    return this.config?.keycloak?.clientId || 'dev-ims';
+    return this.config?.keycloak?.clientId || 'ims';
   }
 }
