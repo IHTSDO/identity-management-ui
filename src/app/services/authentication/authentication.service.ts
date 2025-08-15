@@ -67,84 +67,7 @@ export class AuthenticationService {
     }
 
     /**
-     * Handle 401 responses by doing a top-level navigation to the login endpoint
-     * This avoids CORS issues that occur when following 302 redirects from XHR calls
-     */
-    handleUnauthorizedResponse(error?: any) {
-        if (this.redirecting) {
-            console.log('Already redirecting, skipping...');
-            return;
-        }
-        this.redirecting = true;
-        
-        let loginUrl: string;
-        
-        // Try to extract loginUrl from the error response if it's a proper 401 response
-        if (error && error.error && error.error.loginUrl) {
-            loginUrl = error.error.loginUrl;
-            console.log('Using loginUrl from 401 response:', loginUrl);
-        } else {
-            // Fallback to constructing the login URL with current location
-            const returnTo = encodeURIComponent(window.location.href);
-            loginUrl = `/api/auth/login?returnTo=${returnTo}`;
-            console.log('Using fallback loginUrl:', loginUrl);
-        }
-        
-        console.log('Redirecting to login endpoint:', loginUrl);
-        // Use top-level navigation instead of fetch to avoid CORS issues
-        window.location.href = loginUrl;
-    }
-
-    /**
-     * Handle 401 responses with proper error parsing
-     * This method can be called directly with the error object from HTTP calls
-     */
-    handleUnauthorizedError(error: any) {
-        if (error && error.status === 401) {
-            this.handleUnauthorizedResponse(error);
-        } else {
-            console.error('Unexpected error:', error);
-        }
-    }
-
-    /**
-     * Legacy method - kept for backward compatibility but now redirects to the new login endpoint
-     * @deprecated Use handleUnauthorizedResponse() instead
-     */
-    redirectToKeycloakAuth() {
-        console.warn('redirectToKeycloakAuth() is deprecated. Use handleUnauthorizedResponse() instead.');
-        this.handleUnauthorizedResponse();
-    }
-
-    /**
-     * Check if user is currently authenticated
-     * Returns true if user exists and has login property
-     */
-    isAuthenticated(): boolean {
-        const currentUser = this.user.value;
-        return !!(currentUser && (currentUser as any).login);
-    }
-
-    /**
-     * Attempt silent SSO login without showing any UI to the user
-     * This can be used for background authentication checks
-     */
-    attemptSilentLogin(): void {
-        if (this.redirecting) {
-            console.log('Already redirecting, skipping silent login...');
-            return;
-        }
-        
-        const returnTo = encodeURIComponent(window.location.href);
-        const silentLoginUrl = `/api/auth/auto?returnTo=${returnTo}`;
-        
-        console.log('Attempting silent SSO login:', silentLoginUrl);
-        // Use top-level navigation for silent login
-        window.location.href = silentLoginUrl;
-    }
-
-    /**
-     * Perform logout and redirect to Keycloak
+     * Handle 401/403 responses by doing a top-level navigation to the login endpoint
      * This method handles the logout process by first calling the backend logout endpoint,
      * then redirecting to Keycloak for proper session termination
      */
@@ -185,6 +108,83 @@ export class AuthenticationService {
         console.log('Redirecting to Keycloak logout:', logoutUrl);
         // Use top-level navigation to Keycloak logout endpoint
         window.location.href = logoutUrl;
+    }
+
+    /**
+     * Handle 401/403 responses with proper error parsing
+     * This method can be called directly with the error object from HTTP calls
+     */
+    handleUnauthorizedError(error: any) {
+        if (error && (error.status === 401 || error.status === 403)) {
+            this.handleUnauthorizedResponse(error);
+        } else {
+            console.error('Unexpected error:', error);
+        }
+    }
+
+    /**
+     * Handle 401/403 responses by doing a top-level navigation to the login endpoint
+     * This avoids CORS issues that occur when following 302 redirects from XHR calls
+     */
+    handleUnauthorizedResponse(error?: any) {
+        if (this.redirecting) {
+            console.log('Already redirecting, skipping...');
+            return;
+        }
+        this.redirecting = true;
+        
+        let loginUrl: string;
+        
+        // Try to extract loginUrl from the error response if it's a proper 401/403 response
+        if (error && error.error && error.error.loginUrl) {
+            loginUrl = error.error.loginUrl;
+            console.log('Using loginUrl from 401/403 response:', loginUrl);
+        } else {
+            // Fallback to constructing the login URL with current location
+            const returnTo = encodeURIComponent(window.location.href);
+            loginUrl = `/api/auth/login?returnTo=${returnTo}`;
+            console.log('Using fallback loginUrl:', loginUrl);
+        }
+        
+        console.log('Redirecting to login endpoint:', loginUrl);
+        // Use top-level navigation instead of fetch to avoid CORS issues
+        window.location.href = loginUrl;
+    }
+
+    /**
+     * Legacy method - kept for backward compatibility but now redirects to the new login endpoint
+     * @deprecated Use handleUnauthorizedResponse() instead
+     */
+    redirectToKeycloakAuth() {
+        console.warn('redirectToKeycloakAuth() is deprecated. Use handleUnauthorizedResponse() instead.');
+        this.handleUnauthorizedResponse();
+    }
+
+    /**
+     * Check if user is currently authenticated
+     * Returns true if user exists and has login property
+     */
+    isAuthenticated(): boolean {
+        const currentUser = this.user.value;
+        return !!(currentUser && (currentUser as any).login);
+    }
+
+    /**
+     * Attempt silent SSO login without showing any UI to the user
+     * This can be used for background authentication checks
+     */
+    attemptSilentLogin(): void {
+        if (this.redirecting) {
+            console.log('Already redirecting, skipping silent login...');
+            return;
+        }
+        
+        const returnTo = encodeURIComponent(window.location.href);
+        const silentLoginUrl = `/api/auth/auto?returnTo=${returnTo}`;
+        
+        console.log('Attempting silent SSO login:', silentLoginUrl);
+        // Use top-level navigation for silent login
+        window.location.href = silentLoginUrl;
     }
 
     /**
