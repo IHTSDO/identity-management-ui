@@ -11,9 +11,11 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
         return params.has('code') || params.has('session_state') || params.has('state') || params.has('error');
     })();
 
+    const serviceReferer = state.root.queryParamMap.get('serviceReferer')
+
     // If we have OAuth params, try once to load the user (backend should accept the session/cookie now)
     if (hasOAuthParams) {
-        return authenticationService.httpGetUser().pipe(
+        return authenticationService.httpGetUser('').pipe(
             tap(user => {
                 if (user) {
                     authenticationService.setUser(user);
@@ -40,8 +42,15 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
             if (user && (user as any).login) {
                 return of(true);
             }
-            return authenticationService.httpGetUser().pipe(
-                tap(fetchedUser => authenticationService.setUser(fetchedUser)),
+
+            return authenticationService.httpGetUser(serviceReferer ? serviceReferer : '').pipe(
+                tap(fetchedUser => {
+                    if (serviceReferer) {
+                        window.location.href = serviceReferer;
+                    } else {
+                        authenticationService.setUser(fetchedUser);
+                    }
+                }),
                 map(() => true),
                 catchError((error) => {
                     // Handle 401/403 responses by redirecting to login endpoint

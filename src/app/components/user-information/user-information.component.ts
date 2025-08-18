@@ -28,7 +28,7 @@ export class UserInformationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.authenticationService.httpGetUser().subscribe({
+        this.authenticationService.httpGetUser('').subscribe({
             next: (user) => {
                 this.authenticationService.setUser(user);
             },

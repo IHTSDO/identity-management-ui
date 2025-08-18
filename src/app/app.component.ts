@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
                 console.log('Configuration loaded');
                 
                 // Check if user is already authenticated
-                this.authenticationService.httpGetUser().subscribe({
+                this.authenticationService.httpGetUser('').subscribe({
                     next: (user) => {
                         console.log('User loaded in app component:', user);
                         this.authenticationService.setUser(user);

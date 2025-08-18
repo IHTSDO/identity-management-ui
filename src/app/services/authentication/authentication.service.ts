@@ -46,8 +46,8 @@ export class AuthenticationService {
         return this.logoutStep.asObservable();
     }
 
-    httpGetUser() {
-        return this.http.get<User>('/api/account', { withCredentials: true });
+    httpGetUser(serviceReferer: string) {
+        return this.http.get<User>('/api/account' + (serviceReferer ? '?serviceReferer=' + encodeURIComponent(serviceReferer) : ''));
     }
 
     httpUpdateUser(user: User) {
