@@ -71,7 +71,7 @@ export class AuthenticationService {
      * This method handles the logout process by first calling the backend logout endpoint,
      * then redirecting to Keycloak for proper session termination
      */
-    logout(): void {
+    logout(serviceReferer: string): void {
         if (this.redirecting) {
             console.log('Already redirecting, skipping...');
             return;
@@ -86,13 +86,13 @@ export class AuthenticationService {
             next: (data) => {
                 console.log('Backend logout successful:', data);
                 this.logoutStep.next('keycloak');
-                this.redirectToKeycloak();
+                this.redirectToKeycloak(serviceReferer);
             },
             error: (error) => {
                 console.error('Backend logout error:', error);
                 // Even if backend logout fails, still redirect to Keycloak
                 this.logoutStep.next('keycloak');
-                this.redirectToKeycloak();
+                this.redirectToKeycloak(serviceReferer);
             }
         });
     }
@@ -101,10 +101,10 @@ export class AuthenticationService {
      * Redirect to Keycloak logout endpoint
      * This is called after the backend logout endpoint is hit
      */
-    private redirectToKeycloak(): void {
+    private redirectToKeycloak(serviceReferer: string): void {
         // Get the Keycloak logout URL with returnTo parameter
-        const logoutUrl = this.configService.getLogoutUrlWithReturnTo();
-        
+        const logoutUrl = this.configService.getLogoutUrlWithReturnTo() + encodeURIComponent('/#/login' + (serviceReferer ? '?serviceReferer=' + serviceReferer : ''));
+
         console.log('Redirecting to Keycloak logout:', logoutUrl);
         // Use top-level navigation to Keycloak logout endpoint
         window.location.href = logoutUrl;

@@ -6,16 +6,21 @@ import {catchError, map, of, switchMap, take, tap} from "rxjs";
 export const authenticationGuard: CanActivateFn = (route, state) => {
     const authenticationService = inject(AuthenticationService);
 
+    const serviceReferer = state.root.queryParamMap.get('serviceReferer') || '';
     const hasOAuthParams = typeof window !== 'undefined' && (() => {
         const params = new URLSearchParams(window.location.search || '');
         return params.has('code') || params.has('session_state') || params.has('state') || params.has('error');
     })();
 
-    const serviceReferer = state.root.queryParamMap.get('serviceReferer')
+    const isLogoutRequest = typeof window !== 'undefined' && window.location.href.includes('/logout');
+    if (isLogoutRequest) {
+        authenticationService.logout(serviceReferer);
+        return of(true);
+    }
 
     // If we have OAuth params, try once to load the user (backend should accept the session/cookie now)
     if (hasOAuthParams) {
-        return authenticationService.httpGetUser('').pipe(
+        return authenticationService.httpGetUser(serviceReferer).pipe(
             tap(user => {
                 if (user) {
                     authenticationService.setUser(user);
@@ -43,7 +48,7 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
                 return of(true);
             }
 
-            return authenticationService.httpGetUser(serviceReferer ? serviceReferer : '').pipe(
+            return authenticationService.httpGetUser(serviceReferer).pipe(
                 tap(fetchedUser => {
                     if (serviceReferer) {
                         window.location.href = serviceReferer;
