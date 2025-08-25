@@ -28,7 +28,7 @@
       "description": "RNMS (Release Notes Management System) is a tool for managing SNOMED CT release notes.",
       "client": "",
       "colour": "rose-500",
-      "group": 4
+      "group": 5
     },
     {
       "Application": "RTT",
@@ -40,10 +40,10 @@
       "group": 3
     },
     {
-      "Application": "Snap 2 SNOMED",
+      "Application": "Snap2 SNOMED",
       "faIcon": "fa-link",
       "link": "https://snap.snomedtools.org/",
-      "description": "Snap2SNOMED is a tool for mapping and aligning clinical data to SNOMED CT concepts.",
+      "description": "Snap2 SNOMED is a tool for mapping and aligning clinical data to SNOMED CT concepts.",
       "client": "",
       "colour": "violet-500",
       "group": 3
@@ -64,7 +64,7 @@
       "description": "CIS (Component Identifier Service) is a tool for managing SNOMED CT component identifiers and metadata.",
       "client": "",
       "colour": "rose-500",
-      "group": 4
+      "group": 5
     },
     {
       "Application": "EPS Authoring",
@@ -73,7 +73,7 @@
       "description": "EPS Authoring training and certification platform for SNOMED CT terminology services.",
       "client": "",
       "colour": "green-500",
-      "group": 2
+      "group": 3
     },
     {
       "Application": "Mapping",
@@ -91,7 +91,7 @@
       "description": "MLDS (Member License Distribution Service) is a tool for managing SNOMED CT license distribution to member organizations.",
       "client": "",
       "colour": "sky-500",
-      "group": 1
+      "group": 2
     },
     {
       "Application": "Release",
@@ -100,25 +100,27 @@
       "description": "Release management tool for coordinating SNOMED CT releases.",
       "client": "",
       "colour": "rose-500",
-      "group": 4
+      "group": 5
     },
     {
-      "Application": "Request",
+      "Application": "CRS",
       "faIcon": "fa-inbox",
       "link": "https://request.ihtsdotools.org/",
       "description": "Request management tool for handling requests for change to SNOMED CT content.",
       "client": "",
       "colour": "violet-500",
-      "group": 3
+      "group": 4,
+      "order": 1
     },
     {
-      "Application": "US Request",
-      "faIcon": "fa-flag",
+      "Application": "US CRS",
+      "faIcon": "fa-inbox",
       "link": "https://us-request.ihtsdotools.org/",
-      "description": "US-Request is a tool for managing request for change to US SNOMED CT content.",
+      "description": "US-CRS is a tool for managing request for change to US SNOMED CT content.",
       "client": "",
       "colour": "violet-500",
-      "group": 3
+      "group": 4,
+      "order": 2
     },
     {
       "Application": "RT2",
@@ -136,7 +138,7 @@
       "description": "Simplex is a simplified SNOMED CT authoring and management tool for basic terminology operations.",
       "client": "",
       "colour": "green-500",
-      "group": 2
+      "group": 3
     },
     {
       "Application": "Authoring",
@@ -145,12 +147,31 @@
       "description": "Authoring is a tool for managing SNOMED CT content.",
       "client": "",
       "colour": "green-500",
-      "group": 2
+      "group": 3
     },
     {
-      "Application": "MRCMMT",
+      "Application": "E-Learning",
+      "faIcon": "fa-building-columns",
+      "link": "https://elearning.ihtsdotools.org/",
+      "description": "E-Learning is a tool for providing online training and educational resources for SNOMED CT.",
+      "client": "",
+      "colour": "green-500",
+      "textStyle": "white-space: nowrap;",
+      "group": 1
+    },
+    {
+      "Application": "Reporting",
+      "faIcon": "fa-clipboard-list",
+      "link": "https://authoring.ihtsdotools.org/reporting/",
+      "description": "Reporting is a tool for providing a rich user experience for running, monitoring and analysing 'SNOMED CT clinical content reports'.",
+      "client": "",
+      "colour": "green-500",
+      "group": 3
+    },
+    {
+      "Application": "MRCM Browser",
       "faIcon": "fa-network-wired",
-      "link": "https://authoring.ihtsdotools.org/mrcmmt/",
+      "link": "https://authoring.ihtsdotools.org/mrcm/",
       "description": "MRCMMT is a tool for managing SNOMED CT MRCM content.",
       "client": "",
       "colour": "green-500",
@@ -168,7 +189,7 @@
     {
       "Application": "Template Browser",
       "faIcon": "fa-clone",
-      "link": "https://authoring.ihtsdotools.org/template-browser/",
+      "link": "https://authoring.ihtsdotools.org/template-management/",
       "description": "Template Browser is a tool for browsing SNOMED CT templates.",
       "client": "",
       "colour": "green-500",
@@ -181,7 +202,7 @@
       "description": "Browser is a tool for browsing SNOMED CT content.",
       "client": "",
       "colour": "sky-500",
-      "group": 1
+      "group": 2
     },
     {
       "Application": "Lookup",
@@ -190,7 +211,16 @@
       "description": "Lookup is a tool for quickly searching SNOMED CT content.",
       "client": "",
       "colour": "sky-500",
-      "group": 1
+      "group": 2
+    },    
+    {
+      "Application": "QA Stats",
+      "faIcon": "fa-chart-line",
+      "link": "https://browser.ihtsdotools.org/qa/",
+      "description": "QA Stats is a tool for quickly showing a variety of statistics powered by a statically hosted report.",
+      "client": "",
+      "colour": "sky-500",
+      "group": 2
     },
     {
       "Application": "Forums",
@@ -209,6 +239,15 @@
       "client": "",
       "colour": "sky-500",
       "group": 1
+    },
+    {
+      "Application": "Admin",
+      "faIcon": "fa-briefcase",
+      "link": "https://authoring.ihtsdotools.org/admin/",
+      "description": "Admin is a tool for managing SNOMED CT authoring platform administration codesystems/projects/tasks.",
+      "client": "",
+      "colour": "sky-500",
+      "group": 5
     }
   ]
 }

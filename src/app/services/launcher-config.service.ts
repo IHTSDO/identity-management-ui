@@ -10,7 +10,9 @@ export interface LauncherApp {
   description: string;
   client: string;
   colour: string; // tailwind colour token e.g. sky-400
+  textStyle: string; // CSS styles to apply to the text
   group: number;  // 1..4
+  order: number;  // 1..n
 }
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +33,7 @@ export class LauncherConfigService {
       }),
       map((apps: any[]) => (apps as LauncherApp[])
         .filter(a => !!a && !!a.link && !!a.Application)
-        .sort((a, b) => (a.group ?? 99) - (b.group ?? 99) || a.Application.localeCompare(b.Application))
+        .sort((a, b) => (a.group ?? 99) - (b.group ?? 99) || (a.order ?? 99) - (b.order ?? 99) || a.Application.localeCompare(b.Application))
       )
     );
   }
