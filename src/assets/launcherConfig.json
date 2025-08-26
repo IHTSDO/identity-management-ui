@@ -51,7 +51,7 @@
     {
       "Application": "Spaces",
       "faIcon": "fa-diagram-project",
-      "link": "https://spaces.ihtsdotools.org/",
+      "link": "https://spaces.snomed.org",
       "description": "Atlassian tools provide collaboration and project management capabilities for SNOMED CT development teams.",
       "client": "",
       "colour": "sky-500",
@@ -171,7 +171,7 @@
     {
       "Application": "MRCM Browser",
       "faIcon": "fa-network-wired",
-      "link": "https://authoring.ihtsdotools.org/mrcm/",
+      "link": "https://browser.ihtsdotools.org/mrcm/",
       "description": "MRCMMT is a tool for managing SNOMED CT MRCM content.",
       "client": "",
       "colour": "green-500",
@@ -225,7 +225,7 @@
     {
       "Application": "Forums",
       "faIcon": "fa-comments",
-      "link": "https://forums.snomedtools.org/",
+      "link": "https://forums.snomed.org/",
       "description": "SNOMED community forums (Discourse) for discussions, Q&A and announcements.",
       "client": "",
       "colour": "sky-500",

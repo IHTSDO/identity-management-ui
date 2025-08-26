@@ -79,7 +79,7 @@ export class DiscourseService {
   // Proxy for API calls (nginx forwards /discourse -> https://forums.snomedtools.org)
   private readonly apiBaseUrl = '/discourse';
   // Public base for user-facing links
-  private readonly publicBaseUrl = 'https://forums.snomedtools.org';
+  private readonly publicBaseUrl = 'https://forums.snomed.org';
 
   constructor(private http: HttpClient) {}
 
