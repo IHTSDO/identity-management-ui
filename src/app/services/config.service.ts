@@ -15,8 +15,22 @@ export interface KeycloakConfig {
   };
 }
 
+export interface LauncherApp {
+  Application: string;
+  icon: string;
+  faIcon: string;
+  link: string;
+  description: string;
+  client: string;
+  colour: string; // tailwind colour token e.g. sky-400
+  textStyle: string; // CSS styles to apply to the text
+  group: number;  // 1..4
+  order: number;  // 1..n
+}
+
 export interface AppConfig {
   keycloak: KeycloakConfig;
+  apps: LauncherApp[]
 }
 
 @Injectable({
@@ -25,14 +39,14 @@ export interface AppConfig {
 export class ConfigService {
   private config: AppConfig | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loadConfig(): Observable<AppConfig> {
     // Try to load from assets first, fallback to hardcoded config
     return this.http.get<any>('/assets/launcherConfig.json').pipe(
       map(data => {
         // Extract the config object from the JSON structure
-        this.config = data[0]; // The config is the first object in the array
+        this.config = data; // The config is the first object in the array
         if (!this.config) {
           throw new Error('Configuration not found in launcherConfig.json');
         }
@@ -51,6 +65,21 @@ export class ConfigService {
         return config;
       })
     );
+  }
+
+  getLauncherApps(): LauncherApp[] {
+    var apps = this.config?.apps || [];
+    apps = apps.filter(a => !!a && !!a.link && !!a.Application)
+        .sort((a, b) => (a.group ?? 99) - (b.group ?? 99) || (a.order ?? 99) - (b.order ?? 99) || a.Application.localeCompare(b.Application));        
+    return apps;
+  }
+
+  groupByGroup(apps: LauncherApp[]): Record<number, LauncherApp[]> {
+    return apps.reduce((acc, app) => {
+      const g = app.group ?? 4;
+      (acc[g] ||= []).push(app);
+      return acc;
+    }, {} as Record<number, LauncherApp[]>);
   }
 
   getKeycloakAuthUrl(): string {

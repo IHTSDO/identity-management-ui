@@ -4,7 +4,7 @@ import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import {NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {Router} from "@angular/router";
-import {LauncherApp, LauncherConfigService} from "../../services/launcher-config.service";
+import { ConfigService, LauncherApp } from '../../services/config.service';
 
 @Component({
     selector: 'app-snomed-navbar',
@@ -29,7 +29,7 @@ export class SnomedNavbarComponent implements OnInit {
 
     constructor(
         private readonly authenticationService: AuthenticationService,
-        private readonly launcherConfig: LauncherConfigService,
+        private readonly configService: ConfigService,
         private readonly router: Router
     ) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
@@ -38,7 +38,7 @@ export class SnomedNavbarComponent implements OnInit {
 
     ngOnInit() {
         this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
-        this.launcherConfig.getApps().subscribe(apps => this.apps = apps);
+        this.apps = this.configService.getLauncherApps();
     }
 
     appsByGroup(group: number): LauncherApp[] {

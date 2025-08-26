@@ -5,6 +5,7 @@ import {AuthenticationService} from "../../services/authentication/authenticatio
 import {DiscourseService, DiscourseTopic} from "../../services/discourse.service";
 import {NgIf, NgFor} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
+import { ConfigService, LauncherApp } from '../../services/config.service';
 
 @Component({
     selector: 'app-home',
@@ -19,8 +20,14 @@ export class HomeComponent implements OnInit {
     discourseTopics: DiscourseTopic[] = [];
     loadingTopics = true;
 
+    apps: LauncherApp[] = [];
+    spacesUrl: string = '';
+    forumUrl: string = '';
+    docsUrl: string = '';
+
     constructor(
-        private readonly authenticationService: AuthenticationService, 
+        private readonly authenticationService: AuthenticationService,
+        private readonly configService: ConfigService,
         private readonly discourseService: DiscourseService,
         public router: Router
     ) {
@@ -30,6 +37,12 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         // Load Discourse topics
         this.loadDiscourseTopics();
+        this.apps = this.configService.getLauncherApps();
+        if (this.apps) {
+            this.spacesUrl = this.apps.find(a => a.Application === 'Spaces')?.link || '';
+            this.forumUrl = this.apps.find(a => a.Application === 'Forums')?.link || '';
+            this.docsUrl = this.apps.find(a => a.Application === 'Docs')?.link || '';
+        }
     }
 
     loadDiscourseTopics() {

@@ -28,7 +28,7 @@
                     <div class="flex-1 px-3">
                         <p class="text-slate-700 p-2">Access SNOMED Spaces for collaboration and structured shared spaces.</p>
                     </div>
-                    <div class="border-t" (click)="redirectTo('https://spaces.snomed.org/')">
+                    <div class="border-t" (click)="redirectTo(spacesUrl)">
                         <button class="p-2 rounded-md text-sky-500 w-full">Open Confluence Spaces<i class="fa-solid fa-arrow-right ps-3"></i></button>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="flex-1 px-3">
                         <p class="text-slate-700 p-2">Join discussions and connect with the SNOMED community through our forums and discussion boards.</p>
                     </div>
-                    <div class="border-t" (click)="redirectTo('https://forums.snomed.org/')">
+                    <div class="border-t" (click)="redirectTo(forumUrl)">
                         <button class="p-2 rounded-md text-sky-500 w-full">Join SNOMED Forums<i class="fa-solid fa-arrow-right ps-3"></i></button>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <div class="flex-1 px-3">
                         <p class="text-slate-700 p-2">Access comprehensive documentation and guides for SNOMED CT products and services.</p>
                     </div>
-                    <div class="border-t" (click)="redirectTo('https://docs.snomed.org/')">
+                    <div class="border-t" (click)="redirectTo(docsUrl)">
                         <button class="p-2 rounded-md text-sky-500 w-full">Open SNOMED Docs<i class="fa-solid fa-arrow-right ps-3"></i></button>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="border-t">
-                        <a href="https://forums.snomed.org/" class="block p-2 rounded-md text-sky-500 w-full text-center hover:bg-sky-50 transition-colors">
+                        <a href="{{forumUrl}}" class="block p-2 rounded-md text-sky-500 w-full text-center hover:bg-sky-50 transition-colors">
                             View All Topics<i class="fa-solid fa-arrow-right ps-3"></i>
                         </a>
                     </div>
