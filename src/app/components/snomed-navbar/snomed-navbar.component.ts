@@ -38,7 +38,9 @@ export class SnomedNavbarComponent implements OnInit {
 
     ngOnInit() {
         this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
-        this.apps = this.configService.getLauncherApps();
+        const allApps = this.configService.getLauncherApps();
+        this.apps = allApps.filter(a => !a.clientName || this.user.clientAccess.includes(a.clientName));
+        
     }
 
     appsByGroup(group: number): LauncherApp[] {

@@ -7,6 +7,7 @@ export class User {
         public login: string,
         public displayName: string,
         public roles: string[],
+        public clientAccess: string[],
         public username: string
     ) {}
 }

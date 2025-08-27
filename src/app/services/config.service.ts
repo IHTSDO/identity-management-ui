@@ -21,7 +21,7 @@ export interface LauncherApp {
   faIcon: string;
   link: string;
   description: string;
-  client: string;
+  clientName: string;
   colour: string; // tailwind colour token e.g. sky-400
   textStyle: string; // CSS styles to apply to the text
   group: number;  // 1..4
