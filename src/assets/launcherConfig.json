@@ -50,7 +50,7 @@
     },
     {
       "Application": "Spaces",
-      "faIcon": "fa-diagram-project",
+      "faIcon": "fa-users",
       "link": "https://spaces.snomed.org",
       "description": "Atlassian tools provide collaboration and project management capabilities for SNOMED CT development teams.",
       "client": "",
@@ -67,7 +67,7 @@
       "group": 5
     },
     {
-      "Application": "EPS Authoring",
+      "Application": "Training Authoring",
       "faIcon": "fa-graduation-cap",
       "link": "https://training-authoring.ihtsdotools.org/",
       "description": "EPS Authoring training and certification platform for SNOMED CT terminology services.",
