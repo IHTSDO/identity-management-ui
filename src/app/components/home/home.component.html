@@ -85,10 +85,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="border-t">
-                        <a href="{{forumUrl}}" class="block p-2 rounded-md text-sky-500 w-full text-center hover:bg-sky-50 transition-colors">
-                            View All Topics<i class="fa-solid fa-arrow-right ps-3"></i>
-                        </a>
+                    <div class="border-t" (click)="redirectTo(forumUrl + '/latest')">
+                        <button class="p-2 rounded-md text-sky-500 w-full">View All Topics<i class="fa-solid fa-arrow-right ps-3"></i></button>
                     </div>
                 </div>
             </div>
