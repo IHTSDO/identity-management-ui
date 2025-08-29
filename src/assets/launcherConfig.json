@@ -71,7 +71,7 @@
       "faIcon": "fa-graduation-cap",
       "link": "https://training-authoring.ihtsdotools.org/",
       "description": "Authoring training and certification platform for SNOMED CT terminology services.",
-      "clientName": "",
+      "clientName": "EPS-Snowstorm",
       "colour": "green-500",
       "group": 3
     },
