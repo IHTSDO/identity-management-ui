@@ -36,10 +36,20 @@
                 </div>
             </div>
             <div class="col-span-2">
-                <label for="changePassword" class="text-sm text-slate-700 font-medium">Change Password</label>
+                <label for="currentPassword" class="text-sm text-slate-700 font-medium">Current Password</label>
                 <div class="mt-2">
                     <div class="flex items-center rounded-md px-3 border">
-                        <input [type]="passwordVisible ? 'text' : 'password'" name="Change Password" id="changePassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please type your password here" [(ngModel)]="newPassword" (ngModelChange)="validateNewPassword(); validateNewPasswordConfirm()">
+                        <input [type]="currentPasswordVisible ? 'text' : 'password'" name="Current Password" id="currentPassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Enter your current password" [(ngModel)]="currentPassword">
+                        <i *ngIf="!currentPasswordVisible" class="fa-solid text-slate-700 fa-eye text-lg" (click)="showCurrentPassword()"></i>
+                        <i *ngIf="currentPasswordVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hideCurrentPassword()"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-2">
+                <label for="changePassword" class="text-sm text-slate-700 font-medium">New Password</label>
+                <div class="mt-2">
+                    <div class="flex items-center rounded-md px-3 border">
+                        <input [type]="passwordVisible ? 'text' : 'password'" name="Change Password" id="changePassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Enter your new password" [(ngModel)]="newPassword" (ngModelChange)="validateNewPassword(); validateNewPasswordConfirm()">
                         <i *ngIf="!passwordVisible" class="fa-solid text-slate-700 fa-eye text-lg" (click)="showPassword()"></i>
                         <i *ngIf="passwordVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hidePassword()"></i>
                     </div>
@@ -66,10 +76,10 @@
                 </p>
             </div>
             <div class="col-span-2">
-                <label for="confirmPassword" class="text-sm text-slate-700 font-medium">Confirm Password</label>
+                <label for="confirmPassword" class="text-sm text-slate-700 font-medium">Confirm New Password</label>
                 <div class="mt-2">
                     <div class="flex items-center rounded-md px-3 border">
-                        <input [type]="passwordConfirmVisible ? 'text' : 'password'" name="Confirm Password" id="confirmPassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Please confirm your password" [(ngModel)]="newPasswordConfirm" (ngModelChange)="validateNewPassword(); validateNewPasswordConfirm()">
+                        <input [type]="passwordConfirmVisible ? 'text' : 'password'" name="Confirm Password" id="confirmPassword" class="grow py-1.5 text-slate-700 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Confirm your new password" [(ngModel)]="newPasswordConfirm" (ngModelChange)="validateNewPassword(); validateNewPasswordConfirm()">
                         <i *ngIf="!passwordConfirmVisible" class="fa-solid text-slate-700 fa-eye text-lg" (click)="showConfirmPassword()"></i>
                         <i *ngIf="passwordConfirmVisible" class="fa-solid text-slate-700 fa-eye-slash text-lg" (click)="hideConfirmPassword()"></i>
                     </div>
@@ -83,7 +93,7 @@
         </div>
         <div class="grid w-3/4 justify-self-center mt-5">
             <div class="justify-self-end">
-                <button class="rounded-md bg-lime-600 text-white px-3 py-1.5 w-20 font-medium content-end  disabled:opacity-50" [disabled]="!lengthCheck || !caseCheck || !numeralCheck || !specialCheck || !matchCheck" (click)="savePassword()">SAVE</button>
+                <button class="rounded-md bg-lime-600 text-white px-3 py-1.5 w-20 font-medium content-end  disabled:opacity-50" [disabled]="!currentPassword || !lengthCheck || !caseCheck || !numeralCheck || !specialCheck || !matchCheck" (click)="savePassword()">SAVE</button>
             </div>
         </div>
     </div>

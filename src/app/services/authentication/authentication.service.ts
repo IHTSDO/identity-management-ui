@@ -62,8 +62,11 @@ export class AuthenticationService {
         return this.http.post<Login>('/api/account/logout', {});
     }
 
-    httpUpdatePassword(password: string) {
-        return this.http.put('/api/user/password', { newPassword: password });
+    httpUpdatePassword(currentPassword: string, newPassword: string) {
+        return this.http.put('/api/user/password', { 
+            currentPassword: currentPassword, 
+            newPassword: newPassword 
+        });
     }
 
     /**

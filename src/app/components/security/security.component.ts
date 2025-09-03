@@ -27,9 +27,11 @@ export class SecurityComponent implements OnInit {
     specialCheck: boolean | undefined = undefined;
     matchCheck: boolean | undefined = undefined;
 
+    currentPassword: string = '';
     newPassword: string = '';
     newPasswordConfirm: string = '';
 
+    currentPasswordVisible: boolean = false;
     passwordVisible: boolean = false;
     passwordConfirmVisible: boolean = false;
 
@@ -60,6 +62,14 @@ export class SecurityComponent implements OnInit {
         }
 
         return initials;
+    }
+
+    showCurrentPassword(): void {
+        this.currentPasswordVisible = true;
+    }
+
+    hideCurrentPassword(): void {
+        this.currentPasswordVisible = false;
     }
 
     showPassword(): void {
@@ -108,12 +118,23 @@ export class SecurityComponent implements OnInit {
     }
 
     savePassword(): void {
-        this.authenticationService.httpUpdatePassword(this.newPassword).subscribe({
+        this.authenticationService.httpUpdatePassword(this.currentPassword, this.newPassword).subscribe({
             next: () => {
-                this.toastr.success('Saved');
+                this.toastr.success('Password updated successfully');
+                // Clear the form fields after successful update
+                this.currentPassword = '';
+                this.newPassword = '';
+                this.newPasswordConfirm = '';
+                // Reset validation states
+                this.lengthCheck = undefined;
+                this.caseCheck = undefined;
+                this.numeralCheck = undefined;
+                this.specialCheck = undefined;
+                this.matchCheck = undefined;
             },
             error: err => {
-                this.toastr.error('Error');
+                console.error('Password update error:', err);
+                this.toastr.error('Failed to update password. Please check your current password and try again.');
             }
         })
     }
