@@ -30,7 +30,9 @@
         </div>
 
         <div *ngIf="user" class="relative inline-block end">
-            <button (click)="expandedAppMenu ? expandedAppMenu = false : switchMenu('app')" type="button" class="inline-flex justify-center rounded-full size-10 ms-2 text-sm font-semibold text-gray-200 hover:bg-gray-700" id="app-menu" aria-expanded="true" aria-haspopup="true">
+            <button (click)="expandedAppMenu ? expandedAppMenu = false : switchMenu('app')" type="button" class="inline-flex justify-center rounded-full size-10 ms-2 text-sm font-semibold text-gray-200 hover:bg-gray-700" [ngClass]="{
+                'ring-4 ring-amber-400 ring-offset-2 ring-offset-zinc-800 animate-pulse shadow-lg shadow-amber-400/30': shouldHighlightLauncher
+            }" id="app-menu" aria-expanded="true" aria-haspopup="true">
                 <i class="fa-solid fa-grip text-lg m-auto"></i>
             </button>
 

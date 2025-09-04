@@ -27,6 +27,9 @@ export class SnomedNavbarComponent implements OnInit {
 
     apps: LauncherApp[] = [];
 
+    // UI hint state to draw attention to the app launcher once per session
+    shouldHighlightLauncher: boolean = false;
+
     constructor(
         private readonly authenticationService: AuthenticationService,
         private readonly configService: ConfigService,
@@ -40,6 +43,22 @@ export class SnomedNavbarComponent implements OnInit {
         this.environment = window.location.host.split(/[.]/)[0].split(/[-]/)[0];
         const allApps = this.configService.getLauncherApps();
         this.apps = allApps.filter(a => !a.clientName || this.user.clientAccess.includes(a.clientName));
+        
+        // One-time per session highlight for the app launcher to draw user attention
+        try {
+            const sessionFlagKey = 'app-launcher-highlighted';
+            const hasShownHighlight = sessionStorage.getItem(sessionFlagKey) === 'true';
+            if (!hasShownHighlight) {
+                this.shouldHighlightLauncher = true;
+                // Stop highlighting after a few seconds
+                window.setTimeout(() => {
+                    this.shouldHighlightLauncher = false;
+                    sessionStorage.setItem(sessionFlagKey, 'true');
+                }, 4000);
+            }
+        } catch (_) {
+            // If sessionStorage is unavailable, fail gracefully
+        }
         
     }
 
@@ -63,6 +82,11 @@ export class SnomedNavbarComponent implements OnInit {
                 this.expandedUserMenu = false;
                 this.expandedAppMenu = true;
                 this.expandedItemMenu = false;
+                // Clear highlight immediately when user opens the app menu
+                try {
+                    this.shouldHighlightLauncher = false;
+                    sessionStorage.setItem('app-launcher-highlighted', 'true');
+                } catch (_) {}
                 break;
             case 'item':
                 this.expandedUserMenu = false;
