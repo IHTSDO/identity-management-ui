@@ -11,7 +11,7 @@
                 <div class="rounded-full size-8 m-auto bg-sky-500 pt-1.5 font-semibold museo antialiased">{{getInitials(user)}}</div>
             </button>
 
-            <div *ngIf="expandedUserMenu" class="absolute right-0 z-10 mt-2 w-screen sm:w-64 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu" tabindex="-1">
+            <div *ngIf="expandedUserMenu" class="fixed right-4 top-14 z-10 w-64 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu" tabindex="-1">
                 <div class="grid gap-x-3 p-2">
                     <div class="hover:bg-gray-100 p-2 rounded-lg cursor-pointer" (click)="navigateTo('home')">
                         <p class="text-slate-700">Home</p>
@@ -37,7 +37,7 @@
                 </span>
             </button>
 
-            <div *ngIf="expandedAppMenu" class="fixed right-0 sm:right-4 z-10 mt-2 w-screen sm:w-96 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="app-menu" tabindex="-1">
+            <div *ngIf="expandedAppMenu" class="fixed inset-x-4 sm:left-auto sm:right-4 sm:w-96 top-14 z-10 origin-top sm:origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="app-menu" tabindex="-1">
                 <!-- Group 1 -->
                 <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 p-2" *ngIf="appsByGroup(1).length">
                     <div *ngFor="let app of appsByGroup(1)" class="hover:bg-gray-100 p-3 rounded-lg cursor-pointer flex flex-col items-center justify-center text-center min-h-[80px]" (click)="redirectTo(app.link)" [title]="app.description">
@@ -80,7 +80,7 @@
             <button (click)="expandedItemMenu ? expandedItemMenu = false : switchMenu('item')" type="button" class="inline-flex justify-center rounded-full size-10 ms-2 text-sm font-semibold text-gray-200 hover:bg-gray-700" id="items-menu" aria-expanded="true" aria-haspopup="true">
                 <i class="fa-solid fa-bars text-lg m-auto"></i>
             </button>
-            <div *ngIf="expandedItemMenu" class="absolute right-0 z-10 mt-2 w-screen sm:w-64 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="items-menu" tabindex="-1">
+            <div *ngIf="expandedItemMenu" class="fixed right-4 top-14 z-10 w-64 origin-top-right rounded-lg bg-gray-50 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="items-menu" tabindex="-1">
                 <div class="grid gap-x-3 p-2">
                     <div class="hover:bg-gray-100 p-2 rounded-lg cursor-pointer" (click)="redirectTo('https://snomed.statuspage.io/')">
                         <p class="text-slate-700">SNOMED Status Page</p>
