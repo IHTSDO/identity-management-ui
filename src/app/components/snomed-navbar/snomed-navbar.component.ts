@@ -54,7 +54,7 @@ export class SnomedNavbarComponent implements OnInit {
                 window.setTimeout(() => {
                     this.shouldHighlightLauncher = false;
                     sessionStorage.setItem(sessionFlagKey, 'true');
-                }, 4000);
+                }, 10000);
             }
         } catch (_) {
             // If sessionStorage is unavailable, fail gracefully
