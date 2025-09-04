@@ -14,7 +14,7 @@ import {Subscription} from "rxjs";
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-    title = 'identity-management';
+    title = 'SNOMED International Account';
 
     environment: string = '';
 
@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
     userSubscription: Subscription;
 
     constructor(
-        private readonly authenticationService: AuthenticationService, 
+        private readonly authenticationService: AuthenticationService,
         private readonly configService: ConfigService,
-        @Inject(DOCUMENT) private readonly document: Document, 
+        @Inject(DOCUMENT) private readonly document: Document,
         private readonly router: Router
     ) {
         this.userSubscription = this.authenticationService.getUser().subscribe(data => this.user = data);
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
             next: () => {
                 // Configuration loaded successfully
                 console.log('Configuration loaded');
-                
+
                 // Check if user is already authenticated
                 this.authenticationService.httpGetUser('').subscribe({
                     next: (user) => {
