@@ -1,5 +1,5 @@
-<div *ngIf="user" class="home flex overflow-auto text-sm mt-12">
-    <div class="w-80 flex-none p-3">
+<div *ngIf="user" class="home flex flex-col sm:flex-row overflow-auto text-sm mt-12">
+    <div class="w-full sm:w-80 flex-none p-3 hidden sm:block">
         <div class="rounded-s-full rounded-e-full p-1 hover:bg-sky-200 mb-3 flex items-center cursor-pointer" routerLink="/home">
             <i class="fa-solid text-slate-700 fa-house-chimney text-2xl ps-2"></i>
             <p class="inline-block text-slate-700 ps-3">Home</p>
@@ -9,12 +9,12 @@
             <p class="inline-block text-slate-700 ps-3">Personal Information</p>
         </div>
     </div>
-    <div class="flex-1 pr-80 overflow-auto scrollable-view">
+    <div class="flex-1 sm:pr-80 overflow-auto scrollable-view p-4 sm:p-0">
         <div class="rounded-full size-24 mt-5 m-auto bg-sky-500 pt-5 text-center text-6xl museo antialiased text-sky-100">{{getInitials(user)}}</div>
         <h1 class="text-2xl text-center m-3 text-slate-700">Welcome, <span class="text-3xl">{{user.displayName}}</span></h1>
         <p class="text-center text-slate-600">This is your personal information, you can update it as relevant on this page.</p>
 
-        <div class="grid grid-cols-2 gap-6 w-3/4 justify-self-center mt-10 mb-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full sm:w-3/4 justify-self-center mt-10 mb-3">
             <div>
                 <label for="login" class="text-sm text-slate-700 font-medium">Login</label>
                 <div class="mt-2">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-2">
+            <div class="col-span-1 sm:col-span-2">
                 <label for="email" class="text-sm text-slate-700 font-medium">Email</label>
                 <div class="mt-2">
                     <div class="flex items-center rounded-md px-3 border bg-gray-100">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-2">
+            <div class="col-span-1 sm:col-span-2">
                 <label for="displayName" class="text-sm text-slate-700 font-medium">Display Name</label>
                 <div class="mt-2">
                     <div class="flex items-center rounded-md px-3 border">
@@ -67,7 +67,7 @@
 
         <p class="text-center text-slate-500">* Please note, it may take 24 hours for changes to take place across the tooling suite.</p>
 
-        <div class="grid w-3/4 justify-self-center mt-10">
+        <div class="grid w-full sm:w-3/4 justify-self-center mt-10">
             <div class="justify-self-end">
                 <button class="rounded-md bg-lime-600 text-white px-3 py-1.5 w-20 font-medium content-end  disabled:opacity-50" [disabled]="!saveEnabled" (click)="saveUser(user)">SAVE</button>
             </div>
