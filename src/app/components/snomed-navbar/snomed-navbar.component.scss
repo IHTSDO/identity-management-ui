@@ -6,12 +6,23 @@ div.max-h-roles-view {
     max-height: 75vh;
 }
 
-@keyframes button-highlight-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
+/* Subtle gradient text and scale animation for the app launcher icon */
+@keyframes haloGradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
 
-.highlight-grow {
-    animation: button-highlight-pulse 2.5s ease-in-out infinite;
-    will-change: transform;
+@keyframes gentleScale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.launcher-icon-animated {
+    display: inline-block;
+    background-image: linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6, #f59e0b, #22d3ee);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: haloGradientShift 3s linear infinite, gentleScale 2.8s ease-in-out infinite;
 }
