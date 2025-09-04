@@ -5,3 +5,13 @@ nav {
 div.max-h-roles-view {
     max-height: 75vh;
 }
+
+@keyframes button-highlight-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+.highlight-grow {
+    animation: button-highlight-pulse 2.5s ease-in-out infinite;
+    will-change: transform;
+}
