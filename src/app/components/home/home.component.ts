@@ -3,14 +3,14 @@ import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import {DiscourseService, DiscourseTopic} from "../../services/discourse.service";
-import {NgIf, NgFor} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import { ConfigService, LauncherApp } from '../../services/config.service';
 
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [NgIf, NgFor, RouterLink],
+    imports: [CommonModule, RouterLink],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
 })

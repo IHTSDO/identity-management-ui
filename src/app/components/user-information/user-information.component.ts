@@ -3,7 +3,7 @@ import {Router, RouterLink} from "@angular/router";
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
-import {NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 
@@ -11,7 +11,7 @@ import {ToastrService} from "ngx-toastr";
     selector: 'app-user-information',
     imports: [
         RouterLink,
-        NgIf,
+        CommonModule,
         FormsModule
     ],
     templateUrl: './user-information.component.html',
