@@ -1,15 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, DOCUMENT} from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {SnomedNavbarComponent} from "./components/snomed-navbar/snomed-navbar.component";
 import {AuthenticationService} from "./services/authentication/authentication.service";
 import {ConfigService} from "./services/config.service";
-import {DOCUMENT, NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {User} from "./models/user";
 import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, SnomedNavbarComponent, NgIf],
+    imports: [RouterOutlet, SnomedNavbarComponent, CommonModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Login, User, UnauthorizedResponse} from '../../models/user';
-import {BehaviorSubject, Subject, Subscription} from 'rxjs';
+import {Login, User } from '../../models/user';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import { AuthoringService } from '../authoring/authoring.service';
 import { ConfigService } from '../config.service';
 
